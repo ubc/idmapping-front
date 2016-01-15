@@ -1,0 +1,28 @@
+1.
+<paper-dropdown-menu label="Where to search" (iron-select)="selectedTool=$event.target.selectedItem.innerText">
+  <paper-menu class="dropdown-content">
+    <paper-item *ngFor="#tool of linkedTools">{{tool}}</paper-item>
+  </paper-menu>
+</paper-dropdown-menu>
+
+
+2.
+<paper-dropdown-menu label="What to Find" (iron-select)="selectedFunction=$event.target.selectedItem.innerText">
+  <paper-menu class="dropdown-content">
+    <paper-item *ngFor="#func of functions">{{func}}</paper-item>
+  </paper-menu>
+</paper-dropdown-menu>
+
+<div>
+  Or
+  <paper-button raised class="add-button">
+    <iron-icon icon="add"></iron-icon>
+    Add a Tool
+  </paper-button>
+</div>
+<hr>
+
+3. Search ...
+<div *ngIf="!(selectedTool && selectedFunction)">
+  Select where to search and what to find first
+</div>

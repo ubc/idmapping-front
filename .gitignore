@@ -1,0 +1,11 @@
+node_modules
+dist
+bower_components
+.tmp
+.publish/
+
+# generated js js.map files
+app/components/*.js
+app/components/*.js.map
+
+.idea
