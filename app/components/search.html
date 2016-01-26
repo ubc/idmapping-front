@@ -26,3 +26,16 @@
 <div *ngIf="!(selectedTool && selectedFunction)">
   Select where to search and what to find first
 </div>
+
+
+<div *ngIf="(selectedTool && selectedFunction)">
+  Fill in one* of the following: <br/>
+  <paper-input label="UBC Student ID"></paper-input>
+  <paper-input label="EdX Username"></paper-input>
+  <paper-input label="Student Email"></paper-input>
+  <paper-input label="PUID (Personal Unique ID)"></paper-input>
+
+  <paper-button raised class="custom indigo" (click)="search()">Submit</paper-button>
+  {{listResult | async | json}}
+</div>
+

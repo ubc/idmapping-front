@@ -35,6 +35,10 @@ var AUTOPREFIXER_BROWSERS = [
 ];
 
 var DIST = 'dist';
+var tsSrc = [
+  'app/components/**/*.ts',
+  'app/services/**/*.ts'
+];
 
 var dist = function(subpath) {
   return !subpath ? DIST : path.join(DIST, subpath);
@@ -126,9 +130,7 @@ gulp.task('lint', function() {
 
 // Lint Typescript
 gulp.task('ts-lint', function() {
-  return gulp.src([
-      'app/components/**/*.ts'
-    ])
+  return gulp.src(tsSrc)
     .pipe(tslint()).pipe(tslint.report('prose'));
 });
 
@@ -136,9 +138,7 @@ gulp.task('ts-lint', function() {
  * Compile TypeScript and include references to library and app .d.ts files.
  */
 gulp.task('compile-ts', function() {
-  var tsResult = gulp.src([
-      'app/components/**/*.ts'
-    ], {base: './'})
+  var tsResult = gulp.src(tsSrc, {base: './'})
     .pipe(sourcemaps.init())
     .pipe(tsc(tsProject));
 
@@ -302,9 +302,9 @@ gulp.task('serve', ['ts-lint', 'lint', 'styles', 'elements', 'images'], function
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
   gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
-  gulp.watch(['app/{scripts,elements,components}/**/{*.js,*.html}'], ['lint']);
+  gulp.watch(['app/{scripts,elements,components,services}/**/{*.js,*.html}'], ['lint']);
   gulp.watch(['app/images/**/*'], reload);
-  gulp.watch(['app/components/**/*.ts'], ['compile-ts']);
+  gulp.watch(tsSrc, ['compile-ts']);
 });
 
 // Build and serve the output from the dist build
