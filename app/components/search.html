@@ -1,41 +1,48 @@
-1.
-<paper-dropdown-menu label="Where to search" (iron-select)="selectedTool=$event.target.selectedItem.innerText">
-  <paper-menu class="dropdown-content">
-    <paper-item *ngFor="#tool of linkedTools">{{tool}}</paper-item>
-  </paper-menu>
-</paper-dropdown-menu>
+<section id="idmapping-content-root">
+
+    <header>
+        <h1>Reveal hidden student identities in external learning tools.</h1>
+    </header>
+
+    1.
+    <paper-dropdown-menu label="Where to search" (iron-select)="selectedTool=$event.target.selectedItem.innerText">
+      <paper-menu class="dropdown-content">
+        <paper-item *ngFor="#tool of linkedTools">{{tool}}</paper-item>
+      </paper-menu>
+    </paper-dropdown-menu>
 
 
-2.
-<paper-dropdown-menu label="What to Find" (iron-select)="selectedFunction=$event.target.selectedItem.innerText">
-  <paper-menu class="dropdown-content">
-    <paper-item *ngFor="#func of functions">{{func}}</paper-item>
-  </paper-menu>
-</paper-dropdown-menu>
+    2.
+    <paper-dropdown-menu label="What to Find" (iron-select)="selectedFunction=$event.target.selectedItem.innerText">
+      <paper-menu class="dropdown-content">
+        <paper-item *ngFor="#func of functions">{{func}}</paper-item>
+      </paper-menu>
+    </paper-dropdown-menu>
 
-<div>
-  Or
-  <paper-button raised class="add-button">
-    <iron-icon icon="add"></iron-icon>
-    Add a Tool
-  </paper-button>
-</div>
-<hr>
+    <div>
+      Or
+      <paper-button raised class="add-button">
+        <iron-icon icon="add"></iron-icon>
+        Add a Tool
+      </paper-button>
+    </div>
+    <hr>
 
-3. Search ...
-<div *ngIf="!(selectedTool && selectedFunction)">
-  Select where to search and what to find first
-</div>
+    3. Search ...
+    <div *ngIf="!(selectedTool && selectedFunction)">
+      Select where to search and what to find first
+    </div>
 
 
-<div *ngIf="(selectedTool && selectedFunction)">
-  Fill in one* of the following: <br/>
-  <paper-input label="UBC Student ID"></paper-input>
-  <paper-input label="EdX Username"></paper-input>
-  <paper-input label="Student Email"></paper-input>
-  <paper-input label="PUID (Personal Unique ID)"></paper-input>
+    <div *ngIf="(selectedTool && selectedFunction)">
+      Fill in one* of the following: <br/>
+      <paper-input label="UBC Student ID"></paper-input>
+      <paper-input label="EdX Username"></paper-input>
+      <paper-input label="Student Email"></paper-input>
+      <paper-input label="PUID (Personal Unique ID)"></paper-input>
 
-  <paper-button raised class="custom indigo" (click)="search()">Submit</paper-button>
-  {{listResult | async | json}}
-</div>
+      <paper-button raised class="custom indigo" (click)="search()">Submit</paper-button>
+      {{listResult | async | json}}
+    </div>
 
+</section>
