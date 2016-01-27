@@ -9,7 +9,7 @@
         <main id="ubcidm-login" class="col col-4">
             <p>Hi, Mollie</p>
             <paper-button class="button">
-                Log Out
+                <span class="button-text">Log Out</span>
             </paper-button>
         </main>
     </div>
@@ -42,11 +42,11 @@
                         </paper-menu>
                     </paper-dropdown-menu>
 
-                    <div>
-                        Or
+                    <div class="ubcidm-add-a-tool-container">
+                        <span class="add-a-tool-desc">or</span>
                         <paper-button class="add-button">
                             <iron-icon icon="add"></iron-icon>
-                            Add a Tool
+                            <span class="add-a-tool button-text">Add a Tool</span>
                         </paper-button>
                     </div>
 
@@ -86,13 +86,17 @@
             </div>
 
             <div *ngIf="(selectedTool && selectedFunction)">
-                Fill in one* of the following: <br/>
+                Fill in <strong>one</strong>* of the following: <br/>
                 <paper-input label="UBC Student ID"></paper-input>
                 <paper-input label="EdX Username"></paper-input>
                 <paper-input label="Student Email"></paper-input>
                 <paper-input label="PUID (Personal Unique ID)"></paper-input>
 
-                <paper-button raised class="custom indigo" (click)="search()">Submit</paper-button>
+                <div class="ubcidm-form-submit">
+                    <paper-button class="custom indigo main-form-search" (click)="search()">
+                        <span class="button-text">Submit</span>
+                    </paper-button>
+                </div>
                 {{listResult | async | json}}
             </div>
 
