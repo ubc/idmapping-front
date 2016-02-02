@@ -89,6 +89,16 @@ paper-button {
     line-height: 1;
 }
 
+paper-menu {
+    min-width: 200px;
+}
+
+@media (min-width: 1000px) {
+    paper-menu {
+        min-width: 400px;
+    }
+}
+
     span.button-text {
         text-transform: none;
         position: relative;
@@ -119,6 +129,14 @@ paper-button {
     padding: 15px 35px;
     margin-top: 40px;
 }
+
+.ubcidm-search-inputs {
+
+}
+
+    .ubcidm-search-inputs {
+    
+    }
 
 /* ======================================
    Utilities
