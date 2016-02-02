@@ -67,6 +67,7 @@ All / *                         : Roboto
     margin: 0 0 40px 0;
     padding: 80px 0 30px 0;
     border-bottom: 3px solid #57BFDD;
+    background: transparent url('../images/shoeprints-l-to-r.png') no-repeat 37% 13%;
 }
 
 .ubcidm-add-a-tool-container {
@@ -102,6 +103,10 @@ paper-button {
 /* ======================================
    Search
    ====================================== */
+
+.ubcidm-search-container {
+    background: transparent url('../images/shoeprints-r-to-l.png') no-repeat 100% 20%;
+}
 
 .ubcidm-form-submit {
     text-align: center;
