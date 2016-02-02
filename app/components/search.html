@@ -85,12 +85,15 @@
                 <p class="ubcidm-directions-sub">Select where to search and what to find first.</p>
             </div>
 
-            <div *ngIf="(selectedTool && selectedFunction)">
+            <div class="ubcidm-search-inputs-container" *ngIf="(selectedTool && selectedFunction)">
                 Fill in <strong>one</strong>* of the following: <br/>
-                <paper-input label="UBC Student ID"></paper-input>
-                <paper-input label="EdX Username"></paper-input>
-                <paper-input label="Student Email"></paper-input>
-                <paper-input label="PUID (Personal Unique ID)"></paper-input>
+
+                <div class="ubcidm-search-inputs">
+                    <paper-input label="UBC Student ID"></paper-input>
+                    <paper-input label="EdX Username"></paper-input>
+                    <paper-input label="Student Email"></paper-input>
+                    <paper-input label="PUID (Personal Unique ID)"></paper-input>
+                </div>
 
                 <div class="ubcidm-form-submit">
                     <paper-button class="custom indigo main-form-search" (click)="search()">
