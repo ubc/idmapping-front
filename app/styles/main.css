@@ -105,7 +105,7 @@ paper-button {
    ====================================== */
 
 .ubcidm-search-container {
-    background: transparent url('../images/shoeprints-r-to-l.png') no-repeat 100% 20%;
+    background: transparent url('../images/shoeprints-r-to-l.png') no-repeat 100% 0;
     min-height: 200px;
 }
 
