@@ -6,6 +6,13 @@ bower_components
 
 # generated js js.map files
 app/components/*.js
-app/components/*.js.map
+app/services/*.js
+*.js.map
+*.d.ts
+
+# generated config.js
+app/config.js
 
 .idea
+
+npm-debug.log

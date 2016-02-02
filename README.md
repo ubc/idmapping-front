@@ -17,10 +17,10 @@ npm install -g gulp bower && npm install && bower install
 #### Serve / watch
 
 ```sh
-gulp serve
+BACKEND_URL=http://192.168.99.100:8000 gulp serve
 ```
 
-This outputs an IP address you can use to locally test and another that can be used on devices connected to your network.
+This outputs an IP address you can use to locally test and another that can be used on devices connected to your network. Change the BACKEND_URL to point to the IP/Port of the backend server.
 
 #### Run tests
 

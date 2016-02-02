@@ -21,6 +21,7 @@ var sourcemaps = require('gulp-sourcemaps');
 //var watchify = require('watchify');
 //var browserify = require('browserify');
 // var ghPages = require('gulp-gh-pages');
+var _ = require('lodash');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -272,7 +273,9 @@ gulp.task('clean', function() {
 });
 
 // Watch files for changes & reload
-gulp.task('serve', ['ts-lint', 'lint', 'styles', 'elements', 'images'], function() {
+gulp.task(
+  'serve', ['ts-lint', 'lint', 'styles', 'elements', 'images', 'compile-ts', 'gen-config'],
+  function() {
   browserSync({
     port: 5000,
     notify: false,
@@ -359,6 +362,21 @@ gulp.task('deploy-gh-pages', function() {
       silent: true,
       branch: 'gh-pages'
     }), $.ghPages()));
+});
+
+// generate a config file for frontend, the value can be from env variables or old config file
+gulp.task('gen-config', function(cb) {
+  var config = {};
+  var newConfig = {};
+  try {
+    config = require('./app/config.js');
+  } catch (err) {}
+  newConfig.BACKEND_URL = process.env.BACKEND_URL || config.BACKEND_URL || 'http://localhost:8000';
+  if (!_.isEqual(config, newConfig)) {
+    fs.writeFileSync('app/config.js',
+      'module.exports = ' + JSON.stringify(newConfig, null, 4) + ';', 'utf8');
+  }
+  cb();
 });
 
 // Load tasks for web-component-tester
