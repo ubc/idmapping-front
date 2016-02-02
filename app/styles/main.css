@@ -106,6 +106,7 @@ paper-button {
 
 .ubcidm-search-container {
     background: transparent url('../images/shoeprints-r-to-l.png') no-repeat 100% 20%;
+    min-height: 200px;
 }
 
 .ubcidm-form-submit {
