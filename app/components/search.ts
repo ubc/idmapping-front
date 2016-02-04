@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {RouteConfig} from "angular2/router";
 import {SearchService} from "../services/search";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'my-app',
@@ -13,10 +14,11 @@ export class SearchComponent {
   public selectedTool;
   public selectedFunction;
   public listResult;
+  public query = {};
 
   constructor(private _searchService: SearchService) {}
 
   search() {
-    this.listResult = this._searchService.search();
+    this.listResult = this._searchService.search(this.query);
   }
 }

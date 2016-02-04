@@ -16,6 +16,12 @@ npm install -g gulp bower && npm install && bower install
 
 #### Serve / watch
 
+To use the mock API server:
+```sh
+gulp dev 
+```
+
+Or use a real backend server:
 ```sh
 BACKEND_URL=http://192.168.99.100:8000 gulp serve
 ```

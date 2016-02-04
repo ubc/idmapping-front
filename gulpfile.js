@@ -22,6 +22,7 @@ var sourcemaps = require('gulp-sourcemaps');
 //var browserify = require('browserify');
 // var ghPages = require('gulp-gh-pages');
 var _ = require('lodash');
+var nodemon = require('gulp-nodemon');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -279,7 +280,7 @@ gulp.task(
   browserSync({
     port: 5000,
     notify: false,
-    logPrefix: 'PSK',
+    logPrefix: 'IDM',
     snippetOptions: {
       rule: {
         match: '<span id="browser-sync-binding"></span>',
@@ -308,6 +309,17 @@ gulp.task(
   gulp.watch(['app/{scripts,elements,components,services}/**/{*.js,*.html}'], ['lint']);
   gulp.watch(['app/images/**/*'], reload);
   gulp.watch(tsSrc, ['compile-ts']);
+});
+
+// start dev servers: frontend and mock backend servers
+gulp.task('dev', ['serve'], function() {
+  nodemon({
+    script: 'app/test/server.js',
+    ext: 'js json',
+    watch: 'app/test/'
+  }).on('restart', function() {
+    console.log('Mock API server restarted!');
+  });
 });
 
 // Build and serve the output from the dist build
