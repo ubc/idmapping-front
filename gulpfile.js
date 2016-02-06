@@ -18,11 +18,10 @@ var tsc = require('gulp-typescript');
 var tsProject = tsc.createProject('tsconfig.json');
 var tslint = require('gulp-tslint');
 var sourcemaps = require('gulp-sourcemaps');
-//var watchify = require('watchify');
-//var browserify = require('browserify');
 // var ghPages = require('gulp-gh-pages');
 var _ = require('lodash');
 var nodemon = require('gulp-nodemon');
+var Karma = require('karma').Server;
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -39,7 +38,8 @@ var AUTOPREFIXER_BROWSERS = [
 var DIST = 'dist';
 var tsSrc = [
   'app/components/**/*.ts',
-  'app/services/**/*.ts'
+  'app/services/**/*.ts',
+  '!app/**/*.d.ts'
 ];
 
 var dist = function(subpath) {
@@ -99,6 +99,17 @@ var optimizeHtmlTask = function(src, dest) {
     }));
 };
 
+var compileTypeScriptTask = function(src) {
+  var tsResult = gulp.src(src, {base: './'})
+    .pipe(sourcemaps.init())
+    .pipe(tsc(tsProject));
+
+  return merge([
+    tsResult.dts.pipe(gulp.dest('.')),
+    tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest('.'))
+  ]);
+};
+
 // Compile and automatically prefix stylesheets
 gulp.task('styles', function() {
   return styleTask('styles', ['**/*.css']);
@@ -111,9 +122,8 @@ gulp.task('elements', function() {
 // Lint JavaScript
 gulp.task('lint', function() {
   return gulp.src([
-      'app/scripts/**/*.js',
-      'app/elements/**/*.js',
-      'app/elements/**/*.html',
+      'app/{scripts,elements}/**/*.js',
+      //'app/**/*.html',
       'gulpfile.js'
     ])
     .pipe(reload({
@@ -140,14 +150,7 @@ gulp.task('ts-lint', function() {
  * Compile TypeScript and include references to library and app .d.ts files.
  */
 gulp.task('compile-ts', function() {
-  var tsResult = gulp.src(tsSrc, {base: './'})
-    .pipe(sourcemaps.init())
-    .pipe(tsc(tsProject));
-
-  return merge([
-    tsResult.dts.pipe(gulp.dest('.')),
-    tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest('.'))
-  ]);
+  return compileTypeScriptTask(tsSrc);
 });
 
 /**
@@ -276,7 +279,7 @@ gulp.task('clean', function() {
 // Watch files for changes & reload
 gulp.task(
   'serve', ['ts-lint', 'lint', 'styles', 'elements', 'images', 'compile-ts', 'gen-config'],
-  function() {
+  function(cb) {
   browserSync({
     port: 5000,
     notify: false,
@@ -301,18 +304,25 @@ gulp.task(
         '/node_modules': 'node_modules'
       }
     }
+  }).emitter.on('service:running', function() {
+    // use running event to notify browser ready/task completed
+    cb();
   });
 
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
   gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
-  gulp.watch(['app/{scripts,elements,components,services}/**/{*.js,*.html}'], ['lint']);
+  gulp.watch(['app/{scripts,elements}/**/*.js', 'gulpfile.js'], ['lint']);
   gulp.watch(['app/images/**/*'], reload);
-  gulp.watch(tsSrc, ['compile-ts']);
+  gulp.watch(tsSrc, function(e) {
+    return compileTypeScriptTask(e.path);
+  });
+  //  .on('change', function(event) { // for debug
+  //  console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+  //});
 });
 
-// start dev servers: frontend and mock backend servers
-gulp.task('dev', ['serve'], function() {
+gulp.task('mockapi', function() {
   nodemon({
     script: 'app/test/server.js',
     ext: 'js json',
@@ -322,12 +332,20 @@ gulp.task('dev', ['serve'], function() {
   });
 });
 
+// start dev servers: frontend and mock backend servers, and run TDD for tests
+gulp.task('dev', function(cb) {
+  if (!process.env.BACKEND_URL) {
+    gulp.start.apply(gulp, ['mockapi']);
+  }
+  runSequence('serve', 'tdd', cb);
+});
+
 // Build and serve the output from the dist build
 gulp.task('serve:dist', ['default'], function() {
   browserSync({
     port: 5001,
     notify: false,
-    logPrefix: 'PSK',
+    logPrefix: 'IDM',
     snippetOptions: {
       rule: {
         match: '<span id="browser-sync-binding"></span>',
@@ -393,7 +411,21 @@ gulp.task('gen-config', function(cb) {
 
 // Load tasks for web-component-tester
 // Adds tasks for `gulp test:local` and `gulp test:remote`
-require('web-component-tester').gulp.init(gulp);
+//require('web-component-tester').gulp.init(gulp);
+
+gulp.task('test', function(cb) {
+  new Karma({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, cb).start();
+});
+
+gulp.task('tdd', function() {
+  new Karma({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: false
+  }).start();
+});
 
 // Load custom tasks from the `tasks` directory
 try {

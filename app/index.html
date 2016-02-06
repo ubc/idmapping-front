@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="">
-
 <head>
   <base href="/">
   <meta charset="utf-8">
@@ -41,8 +40,8 @@
   <!-- endbuild -->
   <!-- needed for Polymer to work with Angular -->
   <script>
-    var Polymer = Polymer || {};
-    Polymer.dom = 'shadow';
+  var Polymer = Polymer || {};
+  Polymer.dom = 'shadow';
   </script>
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -62,20 +61,20 @@
 
   <!-- Configure SystemJS -->
   <script>
-    System.config({
-      packages: {
-        components: {
-          format: 'register',
-          defaultExtension: 'js'
-        },
-        services: {
-          format: 'register',
-          defaultExtension: 'js'
-        }
+  System.config({
+    packages: {
+      components: {
+        format: 'register',
+        defaultExtension: 'js'
+      },
+      services: {
+        format: 'register',
+        defaultExtension: 'js'
       }
-    });
-    System.import('config.js');
-    System.import('components/boot').then(null, console.error.bind(console));
+    }
+  });
+  System.import('config.js');
+  System.import('components/boot').then(null, console.error.bind(console));
   </script>
 
 </head>

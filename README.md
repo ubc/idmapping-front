@@ -14,29 +14,29 @@ npm install -g gulp bower && npm install && bower install
 
 ### Development workflow
 
-#### Serve / watch
+#### Run Dev Server 
 
-To use the mock API server:
+To use the mock API server (defined in `app/test/server.js`):
 ```sh
 gulp dev 
 ```
 
-Or use a real backend server:
+Or use a real backend server (Change the BACKEND_URL to point to the IP/Port of the backend server):
 ```sh
-BACKEND_URL=http://192.168.99.100:8000 gulp serve
+BACKEND_URL=http://192.168.99.100:8000 gulp dev 
 ```
 
-This outputs an IP address you can use to locally test and another that can be used on devices connected to your network. Change the BACKEND_URL to point to the IP/Port of the backend server.
+This starts a mock backend API server (if no BACKEND_URL environment variable provided), a browser-sync server to serve the frontend site and a karma server to watch and run tests automatically. When a file is changed, the corresponding server will be reload/refreshed and unit tests will be run.
+It also outputs an IP address you can connect to both locally and remotely for the frontend. 
 
 #### Run tests
 
+The unit tests are run automatically when using `gulp dev`. To run them manually:
 ```sh
-gulp test:local
+gulp test
 ```
 
-This runs the unit tests defined in the `app/test` directory through [web-component-tester](https://github.com/Polymer/web-component-tester).
-
-To run tests Java 7 or higher is required. To update Java go to http://www.oracle.com/technetwork/java/javase/downloads/index.html and download ***JDK*** and install it.
+This runs the unit tests defined in the `app/test` directory.
 
 #### Build & Vulcanize
 

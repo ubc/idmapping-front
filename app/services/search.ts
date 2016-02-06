@@ -1,10 +1,8 @@
-import {Injectable} from "angular2/core";
-import {Http} from "angular2/http";
-import {Inject} from "angular2/core";
-import {URLSearchParams} from "angular2/http";
+import {Injectable, Inject} from "angular2/core";
+import {Http, URLSearchParams, Response, Headers} from "angular2/http";
 import {Observable} from "rxjs/Observable";
-import {Response} from "angular2/http";
-import {Headers} from "angular2/http";
+// need this to use map reducer for http
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class SearchService {
@@ -25,6 +23,7 @@ export class SearchService {
 
     var headers = new Headers();
     headers.append('Authorization', 'Token ' + '1b7331916096ee357e32b1bd6427d53d613ace51');
+
     return this._http.get(this._config.BACKEND_URL + '/api/map', { headers: headers, search: query })
       .map(res => res.json());
   }
