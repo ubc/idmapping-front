@@ -39,6 +39,7 @@ var DIST = 'dist';
 var tsSrc = [
   'app/components/**/*.ts',
   'app/services/**/*.ts',
+  'typings/**/*.ts',
   '!app/**/*.d.ts'
 ];
 

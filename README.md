@@ -9,7 +9,7 @@
 With Node.js installed, run the following one liner from the root:
 
 ```sh
-npm install -g gulp bower && npm install && bower install
+npm install -g gulp bower && npm install && bower install && node_modules/.bin/tsd install
 ```
 
 ### Development workflow
