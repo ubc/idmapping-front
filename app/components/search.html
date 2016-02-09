@@ -28,7 +28,7 @@
 </div>
 
 
-<div *ngIf="(selectedTool && selectedFunction)">
+<div *ngIf="(selectedTool && selectedFunction)" id="search-section">
   Fill in one* of the following: <br/>
   <paper-input label="UBC Student ID" ngDefaultControl [(ngModel)]="query.student_id"></paper-input>
   <paper-input label="EdX Username" ngDefaultControl [(ngModel)]="query.edx_username"></paper-input>

@@ -39,7 +39,6 @@ var DIST = 'dist';
 var tsSrc = [
   'app/components/**/*.ts',
   'app/services/**/*.ts',
-  'typings/**/*.ts',
   '!app/**/*.d.ts'
 ];
 
@@ -101,7 +100,7 @@ var optimizeHtmlTask = function(src, dest) {
 };
 
 var compileTypeScriptTask = function(src) {
-  var tsResult = gulp.src(src, {base: './'})
+  var tsResult = gulp.src(_.concat(['typings/tsd.d.ts'], src), {base: './'})
     .pipe(sourcemaps.init())
     .pipe(tsc(tsProject));
 

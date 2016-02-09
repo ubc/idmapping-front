@@ -10,7 +10,7 @@ import {
   ComponentFixture
 } from 'angular2/testing';
 import {provide} from "angular2/core";
-import {Observable} from "rxjs/Observable";
+import {Observable} from "rxjs/Rx";
 import {HTTP_PROVIDERS, Response} from "angular2/http";
 import {SearchService} from "../services/search";
 import {SearchComponent} from "./search";
@@ -25,11 +25,16 @@ import {
 setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS,
   TEST_BROWSER_APPLICATION_PROVIDERS);
 
+let queryFixture = [{
+  "first_name":"Test1","last_name":"User","user_id":"3DAN9OGVLY05",
+  "edx_username":"test1","student_number":"12345678","email":"test1@ubc.ca"
+}];
+
 class MockSearchService extends SearchService {
   query;
   public search(query): Observable<Response> {
     this.query = query;
-    return Observable.create([{data:'test'}]);
+    return Observable.from([queryFixture]);
   }
 }
 
@@ -46,22 +51,40 @@ describe('Search component', () => {
 
   beforeEach(injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
     return tcb
-      // need this in order to override on the component level
+      // need this in order to override search service on the component level
       .overrideProviders(SearchComponent, [provide(SearchService, {useClass: MockSearchService})])
       .createAsync(SearchComponent)
       .then((componentFixture:ComponentFixture) => {
         this.fixture = componentFixture;
+        this.element = this.fixture.nativeElement;
+        this.instance = this.fixture.debugElement.componentInstance;
       });
   }));
 
+  it('should not populate search section', () => {
+    expect(this.element.querySelector('#search-section')).toBe(null);
+    expect(this.element.querySelectorAll('paper-dropdown-menu').length).toBe(2);
+  });
+
+  it('should populate search section after tool and search type are selected', () => {
+    this.instance.selectedTool = 'Edx';
+    this.instance.selectedFunction = 'Individual Students';
+    this.fixture.detectChanges();
+    expect(this.element.querySelector('#search-section')).not.toBe(null);
+    expect(this.element.querySelectorAll('#search-section table').length).toBe(1);
+  });
+
   it('should fetch the search result from search service', () => {
     let q = {student_id: '1234567'};
-    const element = this.fixture.nativeElement;
-    const instance = this.fixture.debugElement.componentInstance;
+    this.instance.selectedTool = 'Edx';
+    this.instance.selectedFunction = 'Individual Students';
+    this.instance.query = q;
     this.fixture.detectChanges();
-    expect(element.querySelectorAll('paper-dropdown-menu').length).toBe(2);
-    instance.query = q;
-    instance.search();
-    expect(instance._searchService.query).toEqual(q);
+    this.instance.search();
+    expect(this.instance._searchService.query).toEqual(q);
+    this.instance.listResult.subscribe(data => {
+      expect(data).toEqual(queryFixture);
+    });
+    //expect(this.element.querySelectorAll('#search-section tr').length).toBe(2);
   });
 });
