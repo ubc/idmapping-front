@@ -412,19 +412,25 @@ gulp.task('gen-config', function(cb) {
 // Load tasks for web-component-tester
 // Adds tasks for `gulp test:local` and `gulp test:remote`
 //require('web-component-tester').gulp.init(gulp);
-
-gulp.task('test', function(cb) {
-  new Karma({
+function getKarmaOpts(singleRun) {
+  var karmaOpts = {
     configFile: __dirname + '/karma.conf.js',
-    singleRun: true
-  }, cb).start();
+    singleRun: singleRun
+  };
+
+  var browsers = process.env.BROWSERS;
+  if (browsers) {
+    karmaOpts['browsers'] = _.split(browsers, ',');
+  }
+
+  return karmaOpts;
+}
+gulp.task('test', ['compile-ts', 'gen-config'], function(cb) {
+  new Karma(getKarmaOpts(true), cb).start();
 });
 
-gulp.task('tdd', function() {
-  new Karma({
-    configFile: __dirname + '/karma.conf.js',
-    singleRun: false
-  }).start();
+gulp.task('tdd', ['compile-ts', 'gen-config'], function() {
+  new Karma(getKarmaOpts(false)).start();
 });
 
 // Load custom tasks from the `tasks` directory
