@@ -1,12 +1,23 @@
 var jsonServer = require('json-server');
+var bodyParser = require('body-parser');
+var jwt = require('jsonwebtoken');
 
 // Returns an Express server
 var server = jsonServer.create();
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(jsonServer.defaults());
+server.use(bodyParser.json()); // for parsing application/json
+server.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 // Add custom routes
+server.post('/sessions/create', function(req, res) {
+  console.log('body:' + req.body.username);
+  res.json({
+    id_token: jwt.sign(req.body, 'secret')
+  })
+});
+
 server.get('/api/map', function (req, res) {
   res.json([
     {

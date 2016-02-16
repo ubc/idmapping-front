@@ -7,6 +7,9 @@
   "installed": {
     "jasmine/jasmine.d.ts": {
       "commit": "c393f8974d44840a6c9cc6d5b5c0188a8f05143d"
+    },
+    "jwt-decode/jwt-decode.d.ts": {
+      "commit": "44c9273e1e92bc95368f599d1dcda9f560a68956"
     }
   }
 }
