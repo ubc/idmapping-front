@@ -420,7 +420,7 @@ function getKarmaOpts(singleRun) {
 
   var browsers = process.env.BROWSERS;
   if (browsers) {
-    karmaOpts['browsers'] = _.split(browsers, ',');
+    karmaOpts.browsers = _.split(browsers, ',');
   }
 
   return karmaOpts;
