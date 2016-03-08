@@ -18,6 +18,9 @@ All / *                         : Roboto
 /* ======================================
    Generalities
    ====================================== */
+html, body, my-app {
+    height: 100%; /* Mainly for login */
+}
 
 .ubcidm-content {
     width: 80%;
@@ -159,6 +162,102 @@ paper-menu {
     padding: 0;
     display: block;
     line-height: 1.5;
+}
+
+/* ======================================
+   Login
+   ====================================== */
+
+.ubcidm-login-wrapper,
+.ubcidm-login-logo-container,
+.ubcidm-login-form-container {
+    height: 100%;
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.ubcidm-login-wrapper.row {
+    margin-top: 0;
+}
+
+.ubcidm-login-wrapper .col {
+    margin-bottom: 0;
+}
+
+.ubcidm-login-logo-container {
+    background: #EEEEEE;
+}
+
+.ubcidm-login-form-container {
+    background: #333333;
+
+}
+
+.ubcidm-login-and-instructions-container,
+.ubcidm-login-logo {
+    display: block;
+    position: relative;
+    top: 50%;
+    transform: translateY( -50% );
+}
+
+.ubcidm-login-logo {
+    text-align: center;
+}
+
+.ubcidm-login-and-instructions-container {
+    padding: 8em;
+}
+
+.sign-in-instructions {
+    color: white;
+    font-size: 2em;
+    font-weight: 200;
+    margin: 0;
+}
+
+.ubcidm-login-button {
+    background: #57BFDD;
+    border-color: #57BFDD;
+    margin-top: 2em;
+    width: 100%;
+    padding: 1em;
+    color: #333333;
+}
+
+@media all and (max-width: 768px) {
+    .ubcidm-login-and-instructions-container {
+        padding: 2em;
+    }
+}
+
+@media all and (max-width: 533px) {
+
+    /* Smaller screens, the logo can go on top */
+    .ubcidm-login-logo-container,
+    .ubcidm-login-form-container {
+        height: auto;
+    }
+
+    .ubcidm-login-logo,
+    .ubcidm-login-and-instructions-container {
+        position: static;
+        top: auto;
+        transform: inherit;
+    }
+
+    .ubcidm-login-and-instructions-container {
+        padding: 2em;
+    }
+
+    .ubcidm-login-logo-container {
+        height: 15%;
+        min-height: 110px;
+    }
+
+    .ubcidm-login-form-container {
+        height: 85%;
+    }
+
 }
 
 /* ======================================
