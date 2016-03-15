@@ -17,17 +17,10 @@
 
             <p class="sign-in-instructions">Sign in to <strong>ID</strong>entity Detective</p>
 
-            <form class="ubcidm-login-form" (submit)="login($event, username.value, password.value)">
-                <!-- <label for="username">Username</label> -->
-                <!-- Using #username, we can identify this input to get the value on the form's submit event -->
-                <!-- <input type="text" #username class="form-control" id="username" placeholder="Username"> -->
-                <paper-input class="form-control" id="username" label="Username"></paper-input>
-                <!-- <label for="password">Password</label> -->
-                <!-- Using #password we can identify this input to get its value -->
-                <!-- <input type="password" #password class="form-control" id="password" placeholder="Password"> -->
-                <paper-input class="form-control" id="password" label="Password" type="password"></paper-input>
-                <!-- <button type="submit">Submit</button> -->
-                <paper-button class="button ubcidm-login-button">
+            <form class="ubcidm-login-form">
+                <paper-input class="form-control" id="username" ngDefaultControl [(ngModel)]="username" label="Username" type="text"></paper-input>
+                <paper-input class="form-control" id="password" ngDefaultControl [(ngModel)]="password" label="Password" type="password"></paper-input>
+                <paper-button (click)="login($event)" class="button ubcidm-login-button">
                     <span class="button-text">Submit</span>
                 </paper-button>
             </form>

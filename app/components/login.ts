@@ -7,18 +7,23 @@ import {Auth} from "../services/auth";
   templateUrl: './components/login.html'
 })
 export class LoginComponent {
+
+  public username:String;
+  public password:String;
+
   constructor(private _router: Router, private _auth: Auth) {}
 
-  login(event, username, password) {
+  login(event) {
     // This will be called when the user clicks on the Login button
     event.preventDefault();
 
     // We call our API to log the user in. The username and password are entered by the user
-    this._auth.login(username, password).subscribe(() => {
+    // console.log( this.username );
+    this._auth.login(this.username, this.password).subscribe(() => {
       this._router.navigate(['Search']);
     }, (error)=> {
-      alert(error.message);
-      console.log(error.message);
+    //   alert(error);
+      console.log(error);
     });
   }
 }
