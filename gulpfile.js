@@ -401,7 +401,7 @@ gulp.task('gen-config', function(cb) {
   try {
     config = require('./app/config.js');
   } catch (err) {}
-  newConfig.BACKEND_URL = process.env.BACKEND_URL || config.BACKEND_URL || 'http://localhost:8000';
+  newConfig.BACKEND_URL = process.env.BACKEND_URL || config.BACKEND_URL || 'http://localhost:8080';
   if (!_.isEqual(config, newConfig)) {
     fs.writeFileSync('app/config.js',
       'module.exports = ' + JSON.stringify(newConfig, null, 4) + ';', 'utf8');
