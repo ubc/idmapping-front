@@ -27,7 +27,7 @@ export class Auth {
     return this.user;
   }
 
-  login(username, password): Observable {
+  login(username, password): Observable<Response> {
     let options: RequestOptionsArgs = {
       headers: new Headers({
         'Accept': 'application/json',
