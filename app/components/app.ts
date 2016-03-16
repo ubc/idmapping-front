@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 import {SearchComponent} from "./search";
 import {LoginComponent} from "./login";
+import {AppHeaderComponent} from "./app-header";
 import {Auth} from "../services/auth";
 import {Router} from "angular2/router";
 import {CanActivate} from "angular2/router";
@@ -15,7 +16,7 @@ function testToken() {
 @Component({
   selector: 'my-app',
   templateUrl: './components/app.html',
-  directives: [ROUTER_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES,AppHeaderComponent],
   providers: [Auth]
 })
 @RouteConfig([
@@ -31,6 +32,7 @@ function testToken() {
 //
 //  return true;
 //})
+
 export class AppComponent {
   private isAuth: boolean;
   private user;
@@ -48,9 +50,9 @@ export class AppComponent {
   }
 
   logout(event) {
-    event.preventDefault();
     this._auth.logout();
     this.isAuth = false;
     this.user = null;
+    this._router.navigate(['Login']);
   }
 }

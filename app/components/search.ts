@@ -3,6 +3,8 @@ import {RouteConfig} from "angular2/router";
 import {SearchService} from "../services/search";
 import {CanActivate} from "angular2/router";
 
+import {AppHeaderComponent} from "./app-header";
+
 function testToken() {
   console.log('aaaa');
   return true;
@@ -11,7 +13,8 @@ function testToken() {
 @Component({
   selector: 'my-app',
   templateUrl: './components/search.html',
-  providers: [SearchService]
+  providers: [SearchService,AppHeaderComponent],
+  directives: [AppHeaderComponent]
 })
 @CanActivate(() => testToken())
 export class SearchComponent {
@@ -22,7 +25,7 @@ export class SearchComponent {
   public listResult;
   public query = {};
 
-  constructor(private _searchService: SearchService) {}
+  constructor(private _searchService: SearchService, _AppHeaderComponent: AppHeaderComponent) {}
 
   search() {
     this.listResult = this._searchService.search(this.query);

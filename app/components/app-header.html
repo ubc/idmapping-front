@@ -1,0 +1,16 @@
+<section *ngIf="isAuth" id="ubc-idmapping-logo-login" class="ubcidm-logo-login-root">
+
+    <div class="row ubcidm-content">
+        <header id="ubcidm-logo" class="col col-8">
+            <span><a href="" title=""><img src="images/identity-detective.png" alt="Identity Mapping Logo" /></a></span>
+        </header>
+
+        <main id="ubcidm-login" class="col col-4">
+            <p>Welcome back {{user.username}}</p>
+            <paper-button class="button" ngDefaultControl (click)="logout()">
+                <span class="button-text">Log Out</span>
+            </paper-button>
+        </main>
+    </div>
+
+</section><!-- #ubc-idmapping-logo-login -->
