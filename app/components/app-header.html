@@ -1,4 +1,4 @@
-<section *ngIf="isAuth" id="ubc-idmapping-logo-login" class="ubcidm-logo-login-root">
+<section [hidden]="!getAuth()" id="ubc-idmapping-logo-login" class="ubcidm-logo-login-root">
 
     <div class="row ubcidm-content">
         <header id="ubcidm-logo" class="col col-8">

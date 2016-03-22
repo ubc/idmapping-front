@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, EventEmitter, Input, Output} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 import {SearchComponent} from "./search";
 import {LoginComponent} from "./login";
@@ -9,7 +9,7 @@ import {CanActivate} from "angular2/router";
 import {ComponentInstruction} from "angular2/router";
 
 function testToken() {
-  console.log('aaaa');
+  // console.log('aaaa');
   return true;
 }
 
@@ -37,7 +37,10 @@ export class AppComponent {
   private isAuth: boolean;
   private user;
 
+  @Output() onLogin = new EventEmitter<boolean>();
+
   constructor(private _router: Router, private _auth: Auth) {
+      console.log( 'in app constructor: ' + this._auth.isAuth() );
     this.isAuth = this._auth.isAuth();
     if (this.isAuth) {
       this.user = this._auth.getUser();
@@ -45,11 +48,17 @@ export class AppComponent {
   }
 
   login(event) {
+      console.log( 'in app login()' );
     event.preventDefault();
     this._router.navigate(['Login']);
   }
 
+  onlogin(event) {
+      console.log( 'in app onlogin()' );
+  }
+
   logout(event) {
+      console.log( 'in app logout()' );
     this._auth.logout();
     this.isAuth = false;
     this.user = null;

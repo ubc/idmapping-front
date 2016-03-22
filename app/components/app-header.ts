@@ -19,13 +19,16 @@ export class AppHeaderComponent {
   @Output() onLogout = new EventEmitter<boolean>();
 
   constructor(private _router: Router, private _auth: Auth) {
-
+console.log( 'app-header constructor()' );
+    // setTimeout( () => this.offendingAction(), 0);
 	  this.isAuth = this._auth.isAuth();
+      console.log( 'app-header contructor isAuth: ' + this.isAuth );
       if (!this.isAuth) {
         this._router.navigate(['Login']);
       }
 
 	  this.user = this._auth.getUser();
+
   }
 
   logout() {
@@ -39,4 +42,8 @@ export class AppHeaderComponent {
 	  this.isAuth = authd;
   }
 
+  getAuth() {
+    //   console.log( 'in getAuth' );
+      return this._auth.isAuth();
+  }
 }
