@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from 'angular2/core';
-import {ComponentInstruction} from "angular2/router";
-import {Router} from "angular2/router";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ComponentInstruction} from "@angular/router-deprecated";
+import {Router} from "@angular/router-deprecated";
 import {Auth} from "../services/auth";
 
 // import {AppComponent} from "./app";
@@ -26,7 +26,8 @@ console.log( 'app-header constructor()' );
       if (!this.isAuth) {
         this._router.navigate(['Login']);
       }
-
+      console.log( this._auth.getUser() );
+      console.log( this._auth );
 	  this.user = this._auth.getUser();
 
   }
@@ -44,6 +45,7 @@ console.log( 'app-header constructor()' );
 
   getAuth() {
     //   console.log( 'in getAuth' );
+    //   console.log( this._auth.isAuth() );
       return this._auth.isAuth();
   }
 }

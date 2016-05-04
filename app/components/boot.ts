@@ -1,9 +1,14 @@
-import {bootstrap}    from 'angular2/platform/browser'
+///<reference path="../../typings/browser.d.ts"/>
+import {bootstrap}    from '@angular/platform-browser-dynamic'
 import {AppComponent} from './app'
-import {ROUTER_PROVIDERS} from "angular2/router";
-import {HTTP_PROVIDERS} from "angular2/http";
-import {provide} from "angular2/core";
-import config = require("../config.js");
+import {ROUTER_PROVIDERS} from "@angular/router-deprecated";
+import {HTTP_PROVIDERS} from "@angular/http";
+import {provide} from "@angular/core";
+// import config = require('../config.js');
+// Temp as require has stopped...requiring
+var config = {
+    "BACKEND_URL": "http://localhost:8080"
+};
 
 bootstrap(AppComponent, [
   ROUTER_PROVIDERS,

@@ -3,6 +3,7 @@
 // Include Gulp & tools we'll use
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var cleanCSS = require('gulp-clean-css');
 var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
@@ -53,7 +54,7 @@ var styleTask = function(stylesPath, srcs) {
     .pipe($.changed(stylesPath, {extension: '.css'}))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest('.tmp/' + stylesPath))
-    .pipe($.minifyCss())
+    .pipe(cleanCSS())
     .pipe(gulp.dest(dist(stylesPath)))
     .pipe($.size({title: stylesPath}));
 };
@@ -83,7 +84,7 @@ var optimizeHtmlTask = function(src, dest) {
     })))
     // Concatenate and minify styles
     // In case you are still using useref build blocks
-    .pipe($.if('*.css', $.minifyCss()))
+    .pipe($.if('*.css', cleanCSS()))
     .pipe(assets.restore())
     .pipe($.useref())
     // Minify any HTML

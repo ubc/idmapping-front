@@ -1,7 +1,7 @@
-import {Component} from 'angular2/core';
-import {RouteConfig} from "angular2/router";
+import {Component} from '@angular/core';
+import {RouteConfig} from "@angular/router-deprecated";
 import {SearchService} from "../services/search";
-import {CanActivate} from "angular2/router";
+import {CanActivate} from "@angular/router-deprecated";
 
 import {AppHeaderComponent} from "./app-header";
 

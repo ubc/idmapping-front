@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output} from "angular2/core";
-import {Router} from "angular2/router";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Router} from "@angular/router-deprecated";
 import {Auth} from "../services/auth";
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginComponent {
     // We call our API to log the user in. The username and password are entered by the user
     // console.log( this.username );
     this._auth.login(this.username, this.password).subscribe(() => {
-
+        console.log( ['login, subscribe: ', this] );
         this.onLogin.emit(true);
         this._router.navigate(['Search']);
     }, (error)=> {

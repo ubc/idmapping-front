@@ -2,11 +2,11 @@
 
     <div class="row ubcidm-content">
         <header id="ubcidm-logo" class="col col-8">
-            <span><a href="" title=""><img src="images/identity-detective.png" alt="Identity Mapping Logo" /></a></span>
+            <span><a href="/search" title=""><img src="images/identity-detective.png" alt="Identity Mapping Logo" /></a></span>
         </header>
 
         <main id="ubcidm-login" class="col col-4">
-            <p>Welcome back {{user.username}}</p>
+            <p *ngIf="getAuth()">Welcome back {{user.username}}</p>
             <paper-button class="button" ngDefaultControl (click)="logout()">
                 <span class="button-text">Log Out</span>
             </paper-button>

@@ -6,11 +6,11 @@ import {
   inject,
   injectAsync,
   beforeEachProviders
-} from 'angular2/testing';
-import {provide} from 'angular2/core';
+} from '@angular/core/testing';
+import {provide} from '@angular/core';
 import {SearchService} from './search'
-import {HTTP_PROVIDERS, XHRBackend, Response, ResponseOptions} from "angular2/http";
-import {MockBackend, MockConnection} from "angular2/http/testing";
+import {HTTP_PROVIDERS, XHRBackend, Response, ResponseOptions} from "@angular/http";
+import {MockBackend, MockConnection} from "@angular/http/testing";
 
 let config = {
   BACKEND_URL: 'http://backend'

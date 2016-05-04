@@ -5,25 +5,24 @@ import {
   it,
   inject,
   injectAsync,
-  beforeEachProviders,
-  TestComponentBuilder,
-  ComponentFixture
-} from 'angular2/testing';
-import {provide} from "angular2/core";
+  beforeEachProviders
+} from '@angular/core/testing';
+import {TestComponentBuilder, ComponentFixture} from "@angular/compiler/testing"
+import {provide} from "@angular/core";
 import {Observable} from "rxjs/Rx";
-import {HTTP_PROVIDERS, Response} from "angular2/http";
+import {HTTP_PROVIDERS, Response} from "@angular/http";
 import {SearchService} from "../services/search";
 import {SearchComponent} from "./search";
-import {DirectiveResolver} from "angular2/core";
-import {ViewResolver} from "angular2/core";
+//import {DirectiveResolver} from "@angular/core";
+//import {ViewResolver} from "@angular/core";
 
-import {setBaseTestProviders} from 'angular2/testing';
+import {setBaseTestProviders} from '@angular/core/testing';
 import {
-  TEST_BROWSER_PLATFORM_PROVIDERS,
-  TEST_BROWSER_APPLICATION_PROVIDERS
-} from 'angular2/platform/testing/browser';
-setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS,
-  TEST_BROWSER_APPLICATION_PROVIDERS);
+  TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS,
+  TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
+} from '@angular/platform-browser-dynamic/testing';
+
+setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
 
 let queryFixture = [{
   "first_name":"Test1","last_name":"User","user_id":"3DAN9OGVLY05",
@@ -32,7 +31,7 @@ let queryFixture = [{
 
 class MockSearchService extends SearchService {
   query;
-  public search(query): Observable<Response> {
+  public search(query): Observable<{}> {
     this.query = query;
     return Observable.from([queryFixture]);
   }
@@ -54,7 +53,7 @@ describe('Search component', () => {
       // need this in order to override search service on the component level
       .overrideProviders(SearchComponent, [provide(SearchService, {useClass: MockSearchService})])
       .createAsync(SearchComponent)
-      .then((componentFixture:ComponentFixture) => {
+      .then((componentFixture:ComponentFixture<SearchComponent>) => {
         this.fixture = componentFixture;
         this.element = this.fixture.nativeElement;
         this.instance = this.fixture.debugElement.componentInstance;

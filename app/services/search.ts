@@ -1,5 +1,5 @@
-import {Injectable, Inject} from "angular2/core";
-import {Http, URLSearchParams, Response, Headers} from "angular2/http";
+import {Injectable, Inject} from "@angular/core";
+import {Http, URLSearchParams, Response, Headers} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 // need this to use map reducer for http
 import 'rxjs/add/operator/map';
@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 export class SearchService {
   constructor(@Inject('app.config') private _config, private _http: Http) {};
 
-  search(q) : Observable<Response> {
+  search(q) : Observable<{}> {
     var query = new URLSearchParams();
     query.append('wants', 'first_name');
     query.append('wants', 'last_name');

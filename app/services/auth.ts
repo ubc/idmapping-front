@@ -1,6 +1,6 @@
-import {Injectable} from "angular2/core";
-import {Http, RequestOptionsArgs, Response, Headers} from "angular2/http";
-import {Inject} from "angular2/core";
+import {Injectable} from "@angular/core";
+import {Http, RequestOptionsArgs, Response, Headers} from "@angular/http";
+import {Inject} from "@angular/core";
 //import jwtDecode = require("jwt-decode");
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/map';

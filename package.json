@@ -7,15 +7,22 @@
   },
   "license": "MIT",
   "dependencies": {
-    "angular2": "2.0.0-beta.3",
+    "@angular/common":  "2.0.0-rc.0",
+    "@angular/compiler":  "2.0.0-rc.0",
+    "@angular/core":  "2.0.0-rc.0",
+    "@angular/http":  "2.0.0-rc.0",
+    "@angular/platform-browser":  "2.0.0-rc.0",
+    "@angular/platform-browser-dynamic":  "2.0.0-rc.0",
+    "@angular/router-deprecated":  "2.0.0-rc.0",
+    "@angular/upgrade":  "2.0.0-rc.0",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
     "jwt-decode": "^1.5.1",
     "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.0",
+    "rxjs": "5.0.0-beta.6",
     "systemjs": "0.19.6",
     "systemjs-plugin-json": "^0.1.0",
-    "zone.js": "0.5.11"
+    "zone.js": "0.6.12"
   },
   "devDependencies": {
     "browser-sync": "^2.7.7",
@@ -36,8 +43,8 @@
     "gulp-jscs": "^3.0.0",
     "gulp-jscs-stylish": "^1.1.2",
     "gulp-jshint": "^1.6.3",
-    "gulp-load-plugins": "^1.1.0",
-    "gulp-minify-css": "^1.2.1",
+    "gulp-load-plugins": "1.2.*",
+    "gulp-clean-css": "2.0.*",
     "gulp-minify-html": "^1.0.2",
     "gulp-nodemon": "^2.0.6",
     "gulp-rename": "^1.2.0",
@@ -71,9 +78,9 @@
     "require-dir": "^0.3.0",
     "run-sequence": "^1.0.2",
     "systemjs": "^0.19.6",
-    "tsd": "^0.6.5",
+    "typings": "0.8.*",
     "tslint": "^3.2.1",
-    "typescript": "^1.7.5",
+    "typescript": "^1.8.10",
     "vulcanize": ">= 1.4.2",
     "watchify": "^3.7.0",
     "web-component-tester": "^3.4.0"
@@ -82,7 +89,8 @@
     "test": "gulp test",
     "testci": "gulp testci",
     "start": "gulp serve",
-    "lint": "gulp lint"
+    "lint": "gulp lint",
+    "typings": "typings"
   },
   "engines": {
     "node": ">=0.10.0"
