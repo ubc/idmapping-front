@@ -1,12 +1,9 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {Component, EventEmitter, Output} from '@angular/core';
+import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, CanActivate} from "@angular/router-deprecated";
 import {SearchComponent} from "./search";
 import {LoginComponent} from "./login";
 import {AppHeaderComponent} from "./app-header";
 import {Auth} from "../services/auth";
-import {Router} from "@angular/router-deprecated";
-import {CanActivate} from "@angular/router-deprecated";
-import {ComponentInstruction} from "@angular/router-deprecated";
 
 function testToken() {
   // console.log('aaaa');
@@ -16,12 +13,12 @@ function testToken() {
 @Component({
   selector: 'my-app',
   templateUrl: './components/app.html',
-  directives: [ROUTER_DIRECTIVES,AppHeaderComponent],
-  providers: [Auth]
+  directives: [ROUTER_DIRECTIVES, AppHeaderComponent],
+  providers: [Auth, ROUTER_PROVIDERS]
 })
 @RouteConfig([
   {path:'/login', name: 'Login', component: LoginComponent, useAsDefault: false},
-  {path:'/search', name: 'Search', component: SearchComponent, useAsDefault: true},
+  {path:'/search', name: 'Search', component: SearchComponent, useAsDefault: true}
 ])
 @CanActivate(() => testToken())
 //  (next, prev) => {

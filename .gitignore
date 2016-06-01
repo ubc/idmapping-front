@@ -11,6 +11,9 @@ app/services/*.js
 *.js.map
 *.d.ts
 
+# downloaded typing files
+typings
+
 # generated config.js
 app/config.js
 

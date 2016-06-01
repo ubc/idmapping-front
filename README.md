@@ -46,3 +46,6 @@ gulp
 
 Build and optimize the current project, ready for deployment. This includes linting as well as vulcanization, image, script, stylesheet and HTML optimization and minification.
 
+#### Notes
+
+* If it shows the syntax errors (argument type not matching) in WebStorm (or PyCharm, Idea, etc.) in the .ts file, it is caused by core-js typing. Excluding typings directory solves the problem. 

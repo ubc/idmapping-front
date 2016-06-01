@@ -101,7 +101,7 @@ var optimizeHtmlTask = function(src, dest) {
 };
 
 var compileTypeScriptTask = function(src) {
-  var tsResult = gulp.src(_.concat(['typings/tsd.d.ts'], src), {base: './'})
+  var tsResult = gulp.src(_.concat(['typings/index.d.ts'], src), {base: './'})
     .pipe(sourcemaps.init())
     .pipe(tsc(tsProject));
 
