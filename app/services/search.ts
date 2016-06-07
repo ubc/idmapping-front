@@ -1,8 +1,8 @@
-import {Injectable, Inject} from "@angular/core";
-import {Http, URLSearchParams, Response, Headers} from "@angular/http";
-import {Observable} from "rxjs/Observable";
-// need this to use map reducer for http
+import {Injectable, Inject} from '@angular/core';
+import {Http, URLSearchParams, Headers} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+// need this to use map reducer for http
 
 @Injectable()
 export class SearchService {

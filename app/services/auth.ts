@@ -1,10 +1,9 @@
-import {Injectable} from "@angular/core";
-import {Http, RequestOptionsArgs, Response, Headers} from "@angular/http";
-import {Inject} from "@angular/core";
-//import jwtDecode = require("jwt-decode");
-import {Observable} from "rxjs/Observable";
+import {Injectable, Inject} from '@angular/core';
+import {Http, RequestOptionsArgs, Response, Headers} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+//import jwtDecode = require("jwt-decode");
 
 declare var jwt_decode: any;
 

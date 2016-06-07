@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ComponentInstruction} from "@angular/router-deprecated";
-import {Router} from "@angular/router-deprecated";
-import {Auth} from "../services/auth";
+import {Component, EventEmitter, Output} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
+import {Auth} from '../services/auth';
 
 // import {AppComponent} from "./app";
 
@@ -13,10 +12,9 @@ import {Auth} from "../services/auth";
 
 export class AppHeaderComponent {
 
+  @Output() onLogout = new EventEmitter<boolean>();
   private isAuth: boolean;
   private user;
-
-  @Output() onLogout = new EventEmitter<boolean>();
 
   constructor(private _router: Router, private _auth: Auth) {
     console.log( 'app-header constructor()' );

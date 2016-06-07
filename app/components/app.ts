@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, CanActivate} from "@angular/router-deprecated";
-import {SearchComponent} from "./search";
-import {LoginComponent} from "./login";
-import {AppHeaderComponent} from "./app-header";
-import {Auth} from "../services/auth";
+import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, CanActivate} from '@angular/router-deprecated';
+import {SearchComponent} from './search';
+import {LoginComponent} from './login';
+import {AppHeaderComponent} from './app-header';
+import {Auth} from '../services/auth';
 
 function testToken() {
   // console.log('aaaa');

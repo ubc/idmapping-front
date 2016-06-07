@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
-import {RouteConfig} from "@angular/router-deprecated";
-import {SearchService} from "../services/search";
-import {CanActivate} from "@angular/router-deprecated";
-
-import {AppHeaderComponent} from "./app-header";
+import {CanActivate} from '@angular/router-deprecated';
+import {SearchService} from '../services/search';
+import {AppHeaderComponent} from './app-header';
 
 function testToken() {
   console.log('aaaa');

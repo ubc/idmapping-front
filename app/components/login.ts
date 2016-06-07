@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {Router} from "@angular/router-deprecated";
-import {Auth} from "../services/auth";
+import {Component, EventEmitter, Output} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
+import {Auth} from '../services/auth';
 
 @Component({
   selector: 'login',
