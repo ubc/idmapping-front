@@ -4,11 +4,7 @@ import {SearchComponent} from './search';
 import {LoginComponent} from './login';
 import {AppHeaderComponent} from './app-header';
 import {Auth} from '../services/auth';
-
-function testToken() {
-  // console.log('aaaa');
-  return true;
-}
+import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
 
 @Component({
   selector: 'my-app',
@@ -20,21 +16,12 @@ function testToken() {
   {path:'/login', name: 'Login', component: LoginComponent, useAsDefault: false},
   {path:'/search', name: 'Search', component: SearchComponent, useAsDefault: true}
 ])
-@CanActivate(() => testToken())
-//  (next, prev) => {
-//  console.log('canactivate');
-//  if (!this._auth.isAuth()) {
-//    next.component = LoginComponent;
-//  }
-//
-//  return true;
-//})
+@CanActivate(() => tokenNotExpired())
 
 export class AppComponent {
+  @Output() onLogin = new EventEmitter<boolean>();
   private isAuth: boolean;
   private user;
-
-  @Output() onLogin = new EventEmitter<boolean>();
 
   constructor(private _router: Router, private _auth: Auth) {
       console.log( 'in app constructor: ' + this._auth.isAuth() );

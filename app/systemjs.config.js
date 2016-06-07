@@ -5,7 +5,8 @@
     'app':                        '.',
     // 'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     '@angular':                   'node_modules/@angular',
-    'rxjs':                       'node_modules/rxjs'
+    'rxjs':                       'node_modules/rxjs',
+    'angular2-jwt':               'node_modules/angular2-jwt'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension

@@ -2,8 +2,6 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {Router} from '@angular/router-deprecated';
 import {Auth} from '../services/auth';
 
-// import {AppComponent} from "./app";
-
 @Component({
   selector: 'app-header',
   templateUrl: './components/app-header.html',

@@ -1,19 +1,19 @@
 import {Injectable, Inject} from '@angular/core';
-import {Http, RequestOptionsArgs, Response, Headers} from '@angular/http';
+import {RequestOptionsArgs, Response, Headers, Http} from '@angular/http';
+import {JwtHelper} from 'angular2-jwt/angular2-jwt';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
-//import jwtDecode = require("jwt-decode");
-
-declare var jwt_decode: any;
 
 @Injectable()
 export class Auth {
   private token: string;
   private user;
+  private jwtHelper: JwtHelper = new JwtHelper();
+
   constructor(@Inject('app.config') private _config, private _http: Http) {
     this.token = localStorage.getItem('jwt');
-    this.user = this.token && jwt_decode(this.token);
+    this.user = this.token && this.jwtHelper.decodeToken(this.token);
   }
 
   isAuth() {
