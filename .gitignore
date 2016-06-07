@@ -8,6 +8,7 @@ coverage/
 # generated js js.map files
 app/components/*.js
 app/services/*.js
+boot.js
 *.js.map
 *.d.ts
 

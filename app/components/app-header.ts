@@ -19,17 +19,16 @@ export class AppHeaderComponent {
   @Output() onLogout = new EventEmitter<boolean>();
 
   constructor(private _router: Router, private _auth: Auth) {
-console.log( 'app-header constructor()' );
+    console.log( 'app-header constructor()' );
     // setTimeout( () => this.offendingAction(), 0);
-	  this.isAuth = this._auth.isAuth();
-      console.log( 'app-header contructor isAuth: ' + this.isAuth );
-      if (!this.isAuth) {
-        this._router.navigate(['Login']);
-      }
-      console.log( this._auth.getUser() );
-      console.log( this._auth );
-	  this.user = this._auth.getUser();
-
+    this.isAuth = this._auth.isAuth();
+    console.log( 'app-header contructor isAuth: ' + this.isAuth );
+    if (!this.isAuth) {
+      this._router.navigate(['Login']);
+    }
+    console.log( this._auth.getUser() );
+    console.log( this._auth );
+    this.user = this._auth.getUser();
   }
 
   logout() {

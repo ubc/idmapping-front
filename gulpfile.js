@@ -38,8 +38,7 @@ var AUTOPREFIXER_BROWSERS = [
 
 var DIST = 'dist';
 var tsSrc = [
-  'app/components/**/*.ts',
-  'app/services/**/*.ts',
+  'app/**/*.ts',
   '!app/**/*.d.ts'
 ];
 

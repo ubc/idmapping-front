@@ -32,7 +32,7 @@ module.exports = function(config) {
     // proxied base paths
     proxies: {
       // required for component assests fetched by Angular's compiler
-      '/': '/base/app'
+      '/app': '/base/app'
     },
 
     port: 9876,

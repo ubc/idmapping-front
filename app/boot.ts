@@ -1,8 +1,8 @@
-import {bootstrap}    from '@angular/platform-browser-dynamic'
-import {AppComponent} from './app'
+import {bootstrap} from "@angular/platform-browser-dynamic";
 import {ROUTER_PROVIDERS} from "@angular/router-deprecated";
 import {HTTP_PROVIDERS} from "@angular/http";
 import {provide} from "@angular/core";
+import {AppComponent} from "./components/app";
 // import config = require('../config.js');
 // Temp as require has stopped...requiring
 var config = {

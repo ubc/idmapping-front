@@ -2,7 +2,7 @@
 
   // map tells the System loader where to look for things
   var map = {
-    'app':                        'components', // 'dist',
+    'app':                        '.',
     // 'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     '@angular':                   'node_modules/@angular',
     'rxjs':                       'node_modules/rxjs'
@@ -12,6 +12,7 @@
   var packages = {
     'app':                        { main: 'boot.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
+    'dist': { defaultExtension: 'js', format: 'register' },
     // 'angular2-in-memory-web-api': { defaultExtension: 'js' },
   };
 
@@ -35,6 +36,7 @@
   });
 
   var config = {
+    defaultJSExtensions: true,
     map: map,
     packages: packages
   };
