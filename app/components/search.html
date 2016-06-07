@@ -19,7 +19,7 @@
                     <label for="ubcidm-tool-select" class="ubcidm-directions">Where to Search *</label>
                     <paper-dropdown-menu label="- Select a learning tool -" (iron-select)="selectedTool=$event.target.selectedItem.innerText" noink no-animations>
                         <paper-menu class="dropdown-content" name="ubcidm-tool-select" id="ubcidm-tool-select">
-                            <paper-item *ngFor="#tool of linkedTools">{{tool}}</paper-item>
+                            <paper-item *ngFor="let tool of linkedTools">{{tool}}</paper-item>
                         </paper-menu>
                     </paper-dropdown-menu>
 
@@ -45,7 +45,7 @@
                     <label for="ubcidm-what-select" class="ubcidm-directions">What to Find *</label>
                     <paper-dropdown-menu id="ubcidm-what-select" name="ubcidm-what-select" label="- Select the results you want -" (iron-select)="selectedFunction=$event.target.selectedItem.innerText">
                         <paper-menu class="dropdown-content">
-                            <paper-item *ngFor="#func of functions">{{func}}</paper-item>
+                            <paper-item *ngFor="let func of functions">{{func}}</paper-item>
                         </paper-menu>
                     </paper-dropdown-menu>
 
@@ -98,7 +98,7 @@
                         </thead>
 
                         <tbody>
-                            <tr class="searc-result-row" *ngFor="#person of listResult | async">
+                            <tr class="searc-result-row" *ngFor="let person of listResult | async">
                                 <td>{{person.first_name}} {{person.last_name}}</td>
                                 <td>{{person.student_number}}</td>
                                 <td>{{person.edx_username}}</td>
