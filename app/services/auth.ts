@@ -1,4 +1,4 @@
-import {Injectable, Inject} from '@angular/core';
+import {Injectable, EventEmitter, Inject} from '@angular/core';
 import {RequestOptionsArgs, Response, Headers, Http} from '@angular/http';
 import {JwtHelper} from 'angular2-jwt/angular2-jwt';
 import {Observable} from 'rxjs/Observable';
@@ -7,11 +7,15 @@ import 'rxjs/add/operator/do';
 
 @Injectable()
 export class Auth {
+  public userLoggedIn$: EventEmitter<Object>;
+  public userLoggedOut$: EventEmitter<Object>;
   private token: string;
   private user;
   private jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(@Inject('app.config') private _config, private _http: Http) {
+    this.userLoggedIn$ = new EventEmitter();
+    this.userLoggedOut$ = new EventEmitter();
     this.token = localStorage.getItem('jwt');
     this.user = this.token && this.jwtHelper.decodeToken(this.token);
   }
@@ -36,6 +40,8 @@ export class Auth {
       .do(res => {
         this.token = res.id_token;
         localStorage.setItem('jwt', this.token);
+        this.user = this.jwtHelper.decodeToken(this.token);
+        this.userLoggedIn$.emit(this.user);
       });
   }
 
@@ -43,5 +49,6 @@ export class Auth {
     localStorage.removeItem('jwt');
     this.token = null;
     this.user = null;
+    this.userLoggedOut$.emit(true);
   }
 }
