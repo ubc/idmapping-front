@@ -3,8 +3,9 @@ import {Router} from '@angular/router-deprecated';
 import {Auth} from '../services/auth';
 
 @Component({
+  moduleId: module.id,
   selector: 'login',
-  templateUrl: './components/login.html'
+  templateUrl: 'login.html'
 })
 export class LoginComponent {
 

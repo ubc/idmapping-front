@@ -3,8 +3,9 @@ import {Router} from '@angular/router-deprecated';
 import {Auth} from '../services/auth';
 
 @Component({
+  moduleId: module.id,
   selector: 'app-header',
-  templateUrl: './components/app-header.html',
+  templateUrl: 'app-header.html',
   providers: []
 })
 

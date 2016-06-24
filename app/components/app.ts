@@ -7,8 +7,9 @@ import {Auth} from '../services/auth';
 import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
 
 @Component({
+  moduleId: module.id,
   selector: 'my-app',
-  templateUrl: './components/app.html',
+  templateUrl: 'app.html',
   directives: [ROUTER_DIRECTIVES, AppHeaderComponent],
   providers: [Auth, ROUTER_PROVIDERS]
 })

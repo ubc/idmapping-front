@@ -9,8 +9,9 @@ function testToken() {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'my-app',
-  templateUrl: './components/search.html',
+  templateUrl: 'search.html',
   providers: [SearchService,AppHeaderComponent],
   directives: [AppHeaderComponent]
 })
