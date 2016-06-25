@@ -5,21 +5,50 @@ module.exports = function(config) {
 
     frameworks: ['jasmine'],
 
-    exclude: [],
+    exclude: [
+      'node_modules/**/*spec.js'
+    ],
 
+    // list of files / patterns to load in the browser
     files: [
-      // paths loaded by Karma
-      {pattern: 'node_modules/@angular/bundles/angular2-polyfills.js', included: true, watched: true},
-      {pattern: 'node_modules/systemjs/dist/system.src.js', included: true, watched: true},
-      {pattern: 'node_modules/rxjs/bundles/Rx.js', included: true, watched: true},
-      {pattern: 'node_modules/@angular/bundles/angular2.dev.js', included: true, watched: true},
-      {pattern: 'node_modules/@angular/bundles/router.dev.js', included: true, watched: true},
-      {pattern: 'node_modules/@angular/bundles/http.dev.js', included: true, watched: true},
-      {pattern: 'node_modules/@angular/bundles/testing.dev.js', included: true, watched: true},
+      // Polyfills.
+      'node_modules/core-js/client/shim.min.js',
+
+      // System.js for module loading
+      'node_modules/systemjs/dist/system-polyfills.js',
+      'node_modules/systemjs/dist/system.src.js',
+
+      // Zone.js dependencies
+      'node_modules/zone.js/dist/zone.js',
+      'node_modules/zone.js/dist/jasmine-patch.js',
+      'node_modules/zone.js/dist/async-test.js',
+      'node_modules/zone.js/dist/fake-async-test.js',
+
+      // RxJs.
+      { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
+      { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
+
+      // paths loaded via module imports
+      // Angular itself
+      { pattern: 'node_modules/@angular/**/*.js', included: false, watched: true },
+
+      // { pattern: 'dist/dev/**/*.js', included: false, watched: true },
+      // { pattern: 'dist/dev/**/*.html', included: false, watched: true, served: true },
+      // { pattern: 'dist/dev/**/*.css', included: false, watched: true, served: true },
+      { pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: false, watched: false }, // PhantomJS2 (and possibly others) might require it
+
+      // suppress annoying 404 warnings for resources, images, etc.
+      // { pattern: 'dist/dev/assets/**/*', watched: false, included: false, served: true },
+
+      // angular2 jwt
+      { pattern: 'node_modules/angular2-jwt/**/*.js', included: false, watched: false },
+
       {pattern: 'karma-test-shim.js', included: true, watched: true},
 
       // paths loaded via module imports
+      // {pattern: 'app/**/*.spec.js', included: true, watched: true},
       {pattern: 'app/**/*.js', included: false, watched: true},
+
 
       // paths to support debugging with source maps in dev tools
       {pattern: 'app/**/*.ts', included: false, watched: false},
@@ -68,8 +97,11 @@ module.exports = function(config) {
     },
 
     coverageReporter: {
-      reporters:[
-        {type: 'json', subdir: '.', file: 'coverage-final.json'}
+      dir: 'coverage/',
+      reporters: [
+        { type: 'text-summary' },
+        { type: 'json', subdir: '.', file: 'coverage-final.json' },
+        { type: 'html' }
       ]
     },
 

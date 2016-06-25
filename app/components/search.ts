@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {CanActivate} from '@angular/router-deprecated';
 import {SearchService} from '../services/search';
-import {AppHeaderComponent} from './app-header';
 
 function testToken() {
   console.log('aaaa');
@@ -12,8 +11,7 @@ function testToken() {
   moduleId: module.id,
   selector: 'my-app',
   templateUrl: 'search.html',
-  providers: [SearchService,AppHeaderComponent],
-  directives: [AppHeaderComponent]
+  providers: [SearchService],
 })
 @CanActivate(() => testToken())
 export class SearchComponent {
@@ -24,7 +22,7 @@ export class SearchComponent {
   public listResult;
   public query = {};
 
-  constructor(private _searchService: SearchService, _AppHeaderComponent: AppHeaderComponent) {}
+  constructor(private _searchService: SearchService) {}
 
   search() {
     this.listResult = this._searchService.search(this.query);
