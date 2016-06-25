@@ -33,7 +33,7 @@
 
   // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }
   ngPackageNames.forEach(function(pkgName) {
-    packages['@angular/'+pkgName] = { main: pkgName + '.umd.js', defaultExtension: 'js' };
+    packages['@angular/'+pkgName] = { main: '/bundles/' + pkgName + '.umd.js', defaultExtension: 'js' };
   });
 
   var config = {
