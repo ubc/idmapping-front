@@ -16,13 +16,14 @@ var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
 var tsc = require('gulp-typescript');
-var tsProject = tsc.createProject('tsconfig.json');
+var tsProject = tsc.createProject('src/tsconfig.json');
 var tslint = require('gulp-tslint');
 var sourcemaps = require('gulp-sourcemaps');
 // var ghPages = require('gulp-gh-pages');
 var _ = require('lodash');
 var nodemon = require('gulp-nodemon');
 var Karma = require('karma').Server;
+var shell = require('gulp-shell');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -38,8 +39,9 @@ var AUTOPREFIXER_BROWSERS = [
 
 var DIST = 'dist';
 var tsSrc = [
-  'app/**/*.ts',
-  '!app/**/*.d.ts'
+  // 'app/**/*.ts',
+  // '!app/**/*.d.ts'
+  'src/**/*.ts'
 ];
 
 var dist = function(subpath) {
@@ -278,49 +280,55 @@ gulp.task('clean', function() {
 
 // Watch files for changes & reload
 gulp.task(
-  'serve', ['ts-lint', 'lint', 'styles', 'elements', 'images', 'compile-ts', 'gen-config'],
-  function(cb) {
-  browserSync({
-    port: 5000,
-    notify: false,
-    logPrefix: 'IDM',
-    snippetOptions: {
-      rule: {
-        match: '<span id="browser-sync-binding"></span>',
-        fn: function(snippet) {
-          return snippet;
-        }
-      }
-    },
-    // Run as an https by uncommenting 'https: true'
-    // Note: this uses an unsigned certificate which on first access
-    //       will present a certificate warning in the browser.
-    // https: true,
-    server: {
-      baseDir: ['.tmp', 'app'],
-      middleware: [historyApiFallback()],
-      routes: {
-        '/bower_components': 'bower_components',
-        '/node_modules': 'node_modules'
-      }
-    }
-  }).emitter.on('service:running', function() {
-    // use running event to notify browser ready/task completed
-    cb();
-  });
-
-  gulp.watch(['app/**/*.html'], reload);
-  gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
-  gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
-  gulp.watch(['app/{scripts,elements}/**/*.js', 'gulpfile.js'], ['lint']);
-  gulp.watch(['app/images/**/*'], reload);
-  gulp.watch(tsSrc, function(e) {
-    return compileTypeScriptTask(e.path);
-  });
-  //  .on('change', function(event) { // for debug
-  //  console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-  //});
-});
+  'serve', ['ts-lint', 'lint', 'styles', 'elements', 'images'],
+  shell.task([
+    'ng serve'
+  ])
+);
+// gulp.task(
+//   'serve', ['ts-lint', 'lint', 'styles', 'elements', 'images', 'compile-ts', 'gen-config'],
+//   function(cb) {
+//   browserSync({
+//     port: 5000,
+//     notify: false,
+//     logPrefix: 'IDM',
+//     snippetOptions: {
+//       rule: {
+//         match: '<span id="browser-sync-binding"></span>',
+//         fn: function(snippet) {
+//           return snippet;
+//         }
+//       }
+//     },
+//     // Run as an https by uncommenting 'https: true'
+//     // Note: this uses an unsigned certificate which on first access
+//     //       will present a certificate warning in the browser.
+//     // https: true,
+//     server: {
+//       baseDir: ['.tmp', 'app'],
+//       middleware: [historyApiFallback()],
+//       routes: {
+//         '/bower_components': 'bower_components',
+//         '/node_modules': 'node_modules'
+//       }
+//     }
+//   }).emitter.on('service:running', function() {
+//     // use running event to notify browser ready/task completed
+//     cb();
+//   });
+//
+//   gulp.watch(['app/**/*.html'], reload);
+//   gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
+//   gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
+//   gulp.watch(['app/{scripts,elements}/**/*.js', 'gulpfile.js'], ['lint']);
+//   gulp.watch(['app/images/**/*'], reload);
+//   gulp.watch(tsSrc, function(e) {
+//     return compileTypeScriptTask(e.path);
+//   });
+//   //  .on('change', function(event) { // for debug
+//   //  console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+//   //});
+// });
 
 gulp.task('mockapi', function() {
   nodemon({
@@ -395,19 +403,19 @@ gulp.task('deploy-gh-pages', function() {
 });
 
 // generate a config file for frontend, the value can be from env variables or old config file
-gulp.task('gen-config', function(cb) {
-  var config = {};
-  var newConfig = {};
-  try {
-    config = require('./app/config.js');
-  } catch (err) {}
-  newConfig.BACKEND_URL = process.env.BACKEND_URL || config.BACKEND_URL || 'http://localhost:8080';
-  if (!_.isEqual(config, newConfig)) {
-    fs.writeFileSync('app/config.js',
-      'module.exports = ' + JSON.stringify(newConfig, null, 4) + ';', 'utf8');
-  }
-  cb();
-});
+// gulp.task('gen-config', function(cb) {
+//   var config = {};
+//   var newConfig = {};
+//   try {
+//     config = require('./app/config.js');
+//   } catch (err) {}
+//   newConfig.BACKEND_URL = process.env.BACKEND_URL || config.BACKEND_URL || 'http://localhost:8080';
+//   if (!_.isEqual(config, newConfig)) {
+//     fs.writeFileSync('app/config.js',
+//       'module.exports = ' + JSON.stringify(newConfig, null, 4) + ';', 'utf8');
+//   }
+//   cb();
+// });
 
 // Load tasks for web-component-tester
 // Adds tasks for `gulp test:local` and `gulp test:remote`
@@ -425,13 +433,14 @@ function getKarmaOpts(singleRun) {
 
   return karmaOpts;
 }
-gulp.task('test', ['compile-ts', 'gen-config'], function(cb) {
-  new Karma(getKarmaOpts(true), cb).start();
-});
-
-gulp.task('tdd', ['compile-ts', 'gen-config'], function() {
-  new Karma(getKarmaOpts(false)).start();
-});
+// use ng test instead for now
+// gulp.task('test', ['compile-ts'], function(cb) {
+//   new Karma(getKarmaOpts(true), cb).start();
+// });
+//
+// gulp.task('tdd', ['compile-ts'], function() {
+//   new Karma(getKarmaOpts(false)).start();
+// });
 
 // Load custom tasks from the `tasks` directory
 try {

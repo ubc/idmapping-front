@@ -1,0 +1,32 @@
+<!-- On form submit, we call the Login event with the username and the password from the inputs -->
+<div class="ubcidm-login-wrapper row">
+
+  <div class="ubcidm-login-logo-container col col-6">
+
+        <span class="ubcidm-login-logo">
+            <a href="" title="">
+                <img src="images/identity-detective.png" alt="Identity Mapping Logo" />
+            </a>
+        </span>
+
+  </div><!-- .ubcidm-login-logo-container -->
+
+  <div class="ubcidm-login-form-container col col-6">
+
+    <div class="ubcidm-login-and-instructions-container">
+
+      <p class="sign-in-instructions">Sign in to <strong>ID</strong>entity Detective</p>
+
+      <form class="ubcidm-login-form">
+        <paper-input class="form-control" id="username" ngDefaultControl [(ngModel)]="username" label="Username" type="text"></paper-input>
+        <paper-input class="form-control" id="password" ngDefaultControl [(ngModel)]="password" label="Password" type="password"></paper-input>
+        <paper-button (click)="login($event)" class="button ubcidm-login-button">
+          <span class="button-text">Submit</span>
+        </paper-button>
+      </form>
+
+    </div><!-- .ubcidm-login-and-instructions-container -->
+
+  </div><!-- .ubcidm-login-form-container -->
+
+</div><!-- .ubcidm-login-wrapper -->

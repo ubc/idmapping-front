@@ -1,23 +1,45 @@
-node_modules
-dist
-bower_components
-coverage/
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+
+# dependencies
+/node_modules
+/bower_components
+/public/bower_components
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+*.launch
+.settings/
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+# downloaded typing files
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+#System Files
+.DS_Store
+Thumbs.db
+
 .tmp
-.publish/
 
 # generated js js.map files
-app/components/*.js
-app/services/*.js
 boot.js
 *.js.map
 *.d.ts
 
-# downloaded typing files
-typings
-
 # generated config.js
 app/config.js
-
-.idea
-
-npm-debug.log

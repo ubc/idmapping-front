@@ -1,0 +1,120 @@
+<section id="ubc-idmapping-content-root" class="ubcidm-content ubcidm-content-root">
+
+  <header>
+    <h1>Reveal hidden student identities in external learning tools.</h1>
+  </header>
+
+  <main>
+
+    <ul class="ubcidm-filters row">
+
+      <li class="col col-span-6">
+
+        <div class="ubcidm-filter-container ubcidm-where">
+
+          <div class="where-id large-number">
+            <p>1</p>
+          </div><!-- large-number -->
+
+          <label for="ubcidm-tool-select" class="ubcidm-directions">Where to Search *</label>
+          <paper-dropdown-menu label="- Select a learning tool -" (iron-select)="selectedTool=$event.target.selectedItem.innerText" noink no-animations>
+            <paper-menu class="dropdown-content" name="ubcidm-tool-select" id="ubcidm-tool-select">
+              <paper-item *ngFor="let tool of linkedTools">{{tool}}</paper-item>
+            </paper-menu>
+          </paper-dropdown-menu>
+
+          <div class="ubcidm-add-a-tool-container">
+            <span class="add-a-tool-desc">or</span>
+            <paper-button class="add-button">
+              <iron-icon icon="add"></iron-icon>
+              <span class="add-a-tool button-text">Add a Tool</span>
+            </paper-button>
+          </div>
+
+        </div><!-- .ubcidm-filter-container ubcidm-where -->
+
+      </li>
+      <li class="col col-span-6">
+
+        <div class="ubcidm-filter-container ubcidm-what">
+
+          <div class="what-id large-number">
+            <p>2</p>
+          </div><!-- large-number -->
+
+          <label for="ubcidm-what-select" class="ubcidm-directions">What to Find *</label>
+          <paper-dropdown-menu id="ubcidm-what-select" name="ubcidm-what-select" label="- Select the results you want -" (iron-select)="selectedFunction=$event.target.selectedItem.innerText">
+            <paper-menu class="dropdown-content">
+              <paper-item *ngFor="let func of functions">{{func}}</paper-item>
+            </paper-menu>
+          </paper-dropdown-menu>
+
+        </div><!-- .ubcidm-filter-container ubcidm-what -->
+
+      </li>
+
+    </ul>
+
+    <div class="ubcidm-search-container">
+
+      <div class="filter-id large-number">
+        <p>3</p>
+      </div><!-- large-number -->
+
+      <p class="ubcidm-directions">Search ...</p>
+      <div *ngIf="!(selectedTool && selectedFunction)">
+        <p class="ubcidm-directions-sub">Select where to search and what to find first.</p>
+      </div>
+
+      <div class="ubcidm-search-inputs-container" *ngIf="(selectedTool && selectedFunction)" id="search-section">
+        Fill in <strong>one</strong>* of the following: <br/>
+
+        <div class="ubcidm-search-inputs">
+          <paper-input label="UBC Student ID" ngDefaultControl [(ngModel)]="query.student_id"></paper-input>
+          <paper-input label="EdX Username" ngDefaultControl [(ngModel)]="query.edx_username"></paper-input>
+          <paper-input label="Student Email" ngDefaultControl [(ngModel)]="query.email"></paper-input>
+          <paper-input label="PUID (Personal Unique ID)" ngDefaultControl [(ngModel)]="query.puid"></paper-input>
+        </div>
+
+        <div class="ubcidm-form-submit">
+          <paper-button class="custom indigo main-form-search" (click)="search()">
+            <span class="button-text">Submit</span>
+          </paper-button>
+        </div>
+        <!-- {{listResult | async | json}} -->
+
+        <div class="ubcidm-search-results-container">
+
+          <table>
+
+            <thead>
+            <tr>
+              <td>Name</td>
+              <td>Student ID</td>
+              <td>Tool Username</td>
+              <td>Email</td>
+              <td>User ID (PUID)</td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr class="searc-result-row" *ngFor="let person of listResult | async">
+              <td>{{person.first_name}} {{person.last_name}}</td>
+              <td>{{person.student_number}}</td>
+              <td>{{person.edx_username}}</td>
+              <td>{{person.email}}</td>
+              <td>{{person.user_id}}</td>
+            </tr>
+            </tbody>
+
+          </table>
+
+        </div><!-- .ubcidm-search-results-container -->
+
+      </div><!-- .ubcidm-search-inputs-container -->
+
+    </div><!-- .ubcidm-search-container -->
+
+  </main>
+
+</section>
