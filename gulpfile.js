@@ -174,40 +174,40 @@ gulp.task('images', function() {
 });
 
 // Copy all files at the root level (app)
-gulp.task('copy', function() {
-  var app = gulp.src([
-    'app/*',
-    '!app/test',
-    '!app/cache-config.json'
-  ], {
-    dot: true
-  }).pipe(gulp.dest(dist()));
-
-  var bower = gulp.src([
-    'bower_components/**/*'
-  ]).pipe(gulp.dest(dist('bower_components')));
-
-  var elements = gulp.src(['app/elements/**/*.html',
-      'app/elements/**/*.css',
-      'app/elements/**/*.js'
-    ])
-    .pipe(gulp.dest(dist('elements')));
-
-  var swBootstrap = gulp.src(['bower_components/platinum-sw/bootstrap/*.js'])
-    .pipe(gulp.dest(dist('elements/bootstrap')));
-
-  var swToolbox = gulp.src(['bower_components/sw-toolbox/*.js'])
-    .pipe(gulp.dest(dist('sw-toolbox')));
-
-  var vulcanized = gulp.src(['app/elements/elements.html'])
-    .pipe($.rename('elements.vulcanized.html'))
-    .pipe(gulp.dest(dist('elements')));
-
-  return merge(app, bower, elements, vulcanized, swBootstrap, swToolbox)
-    .pipe($.size({
-      title: 'copy'
-    }));
-});
+// gulp.task('copy', function() {
+//   var app = gulp.src([
+//     'app/*',
+//     '!app/test',
+//     '!app/cache-config.json'
+//   ], {
+//     dot: true
+//   }).pipe(gulp.dest(dist()));
+//
+//   var bower = gulp.src([
+//     'bower_components/**/*'
+//   ]).pipe(gulp.dest(dist('bower_components')));
+//
+//   var elements = gulp.src(['app/elements/**/*.html',
+//       'app/elements/**/*.css',
+//       'app/elements/**/*.js'
+//     ])
+//     .pipe(gulp.dest(dist('elements')));
+//
+//   var swBootstrap = gulp.src(['bower_components/platinum-sw/bootstrap/*.js'])
+//     .pipe(gulp.dest(dist('elements/bootstrap')));
+//
+//   var swToolbox = gulp.src(['bower_components/sw-toolbox/*.js'])
+//     .pipe(gulp.dest(dist('sw-toolbox')));
+//
+//   var vulcanized = gulp.src(['app/elements/elements.html'])
+//     .pipe($.rename('elements.vulcanized.html'))
+//     .pipe(gulp.dest(dist('elements')));
+//
+//   return merge(app, bower, elements, vulcanized, swBootstrap, swToolbox)
+//     .pipe($.size({
+//       title: 'copy'
+//     }));
+// });
 
 // Copy web fonts to dist
 gulp.task('fonts', function() {
@@ -332,9 +332,9 @@ gulp.task(
 
 gulp.task('mockapi', function() {
   nodemon({
-    script: 'app/test/server.js',
+    script: 'config/mockserver.js',
     ext: 'js json',
-    watch: 'app/test/'
+    watch: 'config/'
   }).on('restart', function() {
     console.log('Mock API server restarted!');
   });
@@ -375,7 +375,8 @@ gulp.task('serve:dist', ['default'], function() {
 gulp.task('default', ['clean'], function(cb) {
   // Uncomment 'cache-config' if you are going to use service workers.
   runSequence(
-    ['copy', 'styles'],
+    // ['copy', 'styles'],
+    'styles',
     'elements',
     ['ts-lint', 'lint', 'images', 'fonts', 'html'],
     'vulcanize', // 'cache-config',
