@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button';
 
@@ -16,10 +16,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(private _router: Router, private _auth: AuthService) {
     this.user = { username: 'guest'};
-    this._auth.userLoggedIn$.subscribe(user => this.onUserLoggedIn(user));
-    if (!this._auth.isAuth()) {
-      this._router.navigate(['Login']);
-    }
   }
 
   logout() {
@@ -32,6 +28,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._auth.userLoggedIn$.subscribe(user => this.onUserLoggedIn(user));
+    if (!this._auth.isAuth()) {
+      this._router.navigate(['/login']);
+    }
   }
 
   private onUserLoggedIn(user: any) {

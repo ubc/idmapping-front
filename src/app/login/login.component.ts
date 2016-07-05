@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from '../auth.service';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -8,7 +8,7 @@ import {Router} from '@angular/router-deprecated';
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   public username: String;
   public password: String;
@@ -21,13 +21,10 @@ export class LoginComponent implements OnInit {
 
     // We call our API to log the user in. The username and password are entered by the user
     this._auth.login(this.username, this.password).subscribe(() => {
-      this._router.navigate(['Search']);
+      console.log("redirect to search");
+      this._router.navigate(['/search']);
     }, (error) => {
       console.log(error);
     });
   }
-
-  ngOnInit() {
-  }
-
 }

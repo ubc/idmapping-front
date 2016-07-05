@@ -1,10 +1,7 @@
-import { Component } from '@angular/core';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, CanActivate} from '@angular/router-deprecated';
-import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
+import {Component, OnInit} from '@angular/core';
+import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {AuthService} from './auth.service';
-import {SearchComponent} from './search';
 import {HeaderComponent} from './header';
-import {LoginComponent} from './login';
 
 @Component({
   moduleId: module.id,
@@ -12,22 +9,18 @@ import {LoginComponent} from './login';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   directives: [ROUTER_DIRECTIVES, HeaderComponent],
-  providers: [AuthService, ROUTER_PROVIDERS]
+  providers: [AuthService]
 })
-@RouteConfig([
-  {path: '/login', name: 'Login', component: LoginComponent, useAsDefault: false},
-  {path: '/search', name: 'Search', component: SearchComponent, useAsDefault: true}
-])
-@CanActivate(() => tokenNotExpired())
+export class AppComponent implements OnInit {
+  constructor(private _router: Router, private _auth: AuthService) {}
 
-export class AppComponent {
-  constructor(private _router: Router, private _auth: AuthService) {
+  ngOnInit() {
     this._auth.userLoggedOut$.subscribe(isLoggedOut => this.onUserLoggedOut(isLoggedOut));
   }
 
   private onUserLoggedOut(isLoggedOut: boolean) {
     if (isLoggedOut) {
-      this._router.navigate(['Login']);
+      this._router.navigate(['/login']);
     }
   }
 }

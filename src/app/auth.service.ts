@@ -18,7 +18,7 @@ export class AuthService {
   constructor(private _http: Http) {
     this.userLoggedIn$ = new EventEmitter();
     this.userLoggedOut$ = new EventEmitter();
-    this.token = localStorage.getItem('jwt');
+    this.token = localStorage.getItem('id_token');
     this.user = this.token && this.jwtHelper.decodeToken(this.token);
   }
 
@@ -41,14 +41,14 @@ export class AuthService {
       .map(res => res.json())
       .do(res => {
         this.token = res.id_token;
-        localStorage.setItem('jwt', this.token);
+        localStorage.setItem('id_token', this.token);
         this.user = this.jwtHelper.decodeToken(this.token);
         this.userLoggedIn$.emit(this.user);
       });
   }
 
   logout() {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('id_token');
     this.token = null;
     this.user = null;
     this.userLoggedOut$.emit(true);
