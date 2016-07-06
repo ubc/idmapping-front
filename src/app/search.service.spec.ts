@@ -1,18 +1,18 @@
 /* tslint:disable:no-unused-variable */
 
-import {beforeEachProviders, describe, expect, it, inject} from '@angular/core/testing';
+import {addProviders, inject} from '@angular/core/testing';
 import {provide} from '@angular/core';
 import {HTTP_PROVIDERS, XHRBackend, Response, ResponseOptions} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
 import {SearchService} from './search.service';
 
 describe('Search Service', () => {
-  beforeEachProviders(() => {
-    return [
+  beforeEach(() => {
+    addProviders([
       HTTP_PROVIDERS,
       provide(XHRBackend, {useClass: MockBackend}),
       SearchService
-    ];
+    ]);
   });
   it('should search the backend', inject([XHRBackend, SearchService], (mockBackend, searchService) => {
     mockBackend.connections.subscribe(
