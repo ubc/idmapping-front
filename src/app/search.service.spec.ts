@@ -1,15 +1,10 @@
 /* tslint:disable:no-unused-variable */
 
-import {
-  beforeEach, beforeEachProviders,
-  describe, xdescribe,
-  expect, it, xit,
-  async, inject
-} from '@angular/core/testing';
+import {beforeEachProviders, describe, expect, it, inject} from '@angular/core/testing';
 import {provide} from '@angular/core';
 import {HTTP_PROVIDERS, XHRBackend, Response, ResponseOptions} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
-import { SearchService } from './search.service';
+import {SearchService} from './search.service';
 
 describe('Search Service', () => {
   beforeEachProviders(() => {

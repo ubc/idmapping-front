@@ -21,7 +21,6 @@ export class LoginComponent {
 
     // We call our API to log the user in. The username and password are entered by the user
     this._auth.login(this.username, this.password).subscribe(() => {
-      console.log("redirect to search");
       this._router.navigate(['/search']);
     }, (error) => {
       console.log(error);

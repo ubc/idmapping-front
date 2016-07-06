@@ -1,12 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
-import {
-  beforeEach, beforeEachProviders,
-  describe, xdescribe,
-  expect, it, xit,
-  async, inject
-} from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {beforeEachProviders, describe} from '@angular/core/testing';
+import {AppComponent} from './app.component';
 // import {ROUTER_FAKE_PROVIDERS} from '@angular/router/testing';
 
 beforeEachProviders(() => [AppComponent]);

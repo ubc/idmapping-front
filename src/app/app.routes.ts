@@ -1,7 +1,6 @@
-import { provideRouter, RouterConfig } from '@angular/router';
-
-import {LoginRoutes, AUTH_PROVIDERS} from './login/login.routes';
-import {SearchRoutes} from './search/search.routes';
+import {provideRouter, RouterConfig} from '@angular/router';
+import {LoginRoutes, AUTH_PROVIDERS} from './login';
+import {SearchRoutes} from './search';
 
 export const appRoutes: RouterConfig = [
   ...LoginRoutes,

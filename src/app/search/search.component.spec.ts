@@ -1,18 +1,13 @@
 /* tslint:disable:no-unused-variable */
 
-import {
-  describe,
-  expect,
-  beforeEach,
-  it,
-  beforeEachProviders, inject, async,
-} from '@angular/core/testing';
+import {describe, expect, beforeEach, it, beforeEachProviders, inject, async} from '@angular/core/testing';
 import {TestComponentBuilder, ComponentFixture} from '@angular/compiler/testing';
 import {provide} from '@angular/core';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {SearchService} from '../search.service';
 import {SearchComponent} from './search.component';
+import 'rxjs/add/observable/from';
 
 let queryFixture = [{
   'first_name': 'Test1', 'last_name': 'User', 'user_id': '3DAN9OGVLY05',

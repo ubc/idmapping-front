@@ -404,26 +404,26 @@ gulp.task('deploy-gh-pages', function() {
 });
 
 // generate a config file for frontend, the value can be from env variables or old config file
-// gulp.task('gen-config', function(cb) {
-//   var config = {};
-//   var newConfig = {};
-//   try {
-//     config = require('./app/config.js');
-//   } catch (err) {}
-//   newConfig.BACKEND_URL = process.env.BACKEND_URL || config.BACKEND_URL || 'http://localhost:8080';
-//   if (!_.isEqual(config, newConfig)) {
-//     fs.writeFileSync('app/config.js',
-//       'module.exports = ' + JSON.stringify(newConfig, null, 4) + ';', 'utf8');
-//   }
-//   cb();
-// });
+/*gulp.task('gen-config', function(cb) {
+  var config = {};
+  var newConfig = {};
+  try {
+    config = require('./app/config.js');
+  } catch (err) {}
+  newConfig.BACKEND_URL = process.env.BACKEND_URL || config.BACKEND_URL || 'http://localhost:8080';
+  if (!_.isEqual(config, newConfig)) {
+    fs.writeFileSync('app/config.js',
+      'module.exports = ' + JSON.stringify(newConfig, null, 4) + ';', 'utf8');
+  }
+  cb();
+});*/
 
 // Load tasks for web-component-tester
 // Adds tasks for `gulp test:local` and `gulp test:remote`
 //require('web-component-tester').gulp.init(gulp);
 function getKarmaOpts(singleRun) {
   var karmaOpts = {
-    configFile: __dirname + '/karma.conf.js',
+    configFile: __dirname + '/config/karma.conf.js',
     singleRun: singleRun
   };
 
@@ -434,14 +434,14 @@ function getKarmaOpts(singleRun) {
 
   return karmaOpts;
 }
-// use ng test instead for now
-// gulp.task('test', ['compile-ts'], function(cb) {
-//   new Karma(getKarmaOpts(true), cb).start();
-// });
-//
-// gulp.task('tdd', ['compile-ts'], function() {
-//   new Karma(getKarmaOpts(false)).start();
-// });
+
+gulp.task('test', ['compile-ts'], function(cb) {
+  new Karma(getKarmaOpts(true), cb).start();
+});
+
+gulp.task('tdd', ['compile-ts'], function() {
+  new Karma(getKarmaOpts(false)).start();
+});
 
 // Load custom tasks from the `tasks` directory
 try {

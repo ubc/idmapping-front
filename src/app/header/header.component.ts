@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthService} from '../auth.service';
+import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
 
 @Component({
   moduleId: module.id,
