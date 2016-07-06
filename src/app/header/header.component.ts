@@ -31,7 +31,9 @@ export class HeaderComponent implements OnInit {
     this._auth.userLoggedIn$.subscribe(user => this.onUserLoggedIn(user));
     if (!this._auth.isAuth()) {
       this._router.navigate(['/login']);
+      return;
     }
+    this.user = this._auth.getUser();
   }
 
   private onUserLoggedIn(user: any) {
