@@ -15,5 +15,6 @@ export class SingleSearchComponent {
 
   search() {
     this.listResult = this._searchService.search(this.query);
+    return this.listResult;
   }
 }
