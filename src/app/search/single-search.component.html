@@ -1,0 +1,46 @@
+<div class="ubcidm-search-inputs-container" id="search-section">
+  Fill in <strong>one</strong>* of the following: <br/>
+
+  <div class="ubcidm-search-inputs">
+    <paper-input label="UBC Student ID" ngDefaultControl [(ngModel)]="query.student_id"></paper-input>
+    <paper-input label="EdX Username" ngDefaultControl [(ngModel)]="query.edx_username"></paper-input>
+    <paper-input label="Student Email" ngDefaultControl [(ngModel)]="query.email"></paper-input>
+    <paper-input label="PUID (Personal Unique ID)" ngDefaultControl [(ngModel)]="query.puid"></paper-input>
+  </div>
+
+  <div class="ubcidm-form-submit">
+    <paper-button class="custom indigo main-form-search" (click)="search()">
+      <span class="button-text">Submit</span>
+    </paper-button>
+  </div>
+  <!-- {{listResult | async | json}} -->
+
+  <div class="ubcidm-search-results-container">
+
+    <table class="table">
+
+      <thead>
+      <tr>
+        <td>Name</td>
+        <td>Student ID</td>
+        <td>Tool Username</td>
+        <td>Email</td>
+        <td>User ID (PUID)</td>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr class="searc-result-row" *ngFor="let person of listResult | async">
+        <td>{{person.first_name}} {{person.last_name}}</td>
+        <td>{{person.student_number}}</td>
+        <td>{{person.edx_username}}</td>
+        <td>{{person.email}}</td>
+        <td>{{person.user_id}}</td>
+      </tr>
+      </tbody>
+
+    </table>
+
+  </div><!-- .ubcidm-search-results-container -->
+
+</div><!-- .ubcidm-search-inputs-container -->

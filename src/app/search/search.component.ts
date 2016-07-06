@@ -1,14 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {SearchService} from '../search.service';
+import {Component} from '@angular/core';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-search',
   templateUrl: 'search.component.html',
   styleUrls: ['search.component.css'],
-  providers: [SearchService]
+  directives: [ROUTER_DIRECTIVES],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   public linkedTools = ['Edx', 'MyTool'];
   public functions = ['Individual Students', 'Grade/Enrolment'];
   public selectedTool;
@@ -16,12 +15,14 @@ export class SearchComponent implements OnInit {
   public listResult;
   public query = {};
 
-  constructor(private _searchService: SearchService) {}
+  constructor(private router: Router) {}
 
-  search() {
-    this.listResult = this._searchService.search(this.query);
-  }
-
-  ngOnInit() {
+  onFunctionSelected(func: string) {
+    if (func === 'Individual Students') {
+      console.log(func);
+      this.router.navigate(['/search/single']);
+    } else if (func === 'Grade/Enrolment') {
+      this.router.navigate(['/search/bulk']);
+    }
   }
 }
