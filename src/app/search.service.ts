@@ -18,9 +18,15 @@ export class SearchService {
     query.append('wants', 'user_id');
     query.append('wants', 'student_number');
 
-    for (let key in q) {
-      if (q.hasOwnProperty(key)) {
-        query.set(key, q[key]);
+    if (!(q instanceof Array)) {
+      q = [q];
+    }
+
+    for (let i = 0; i < q.length; i++) {
+      for (let key in q[i]) {
+        if (q[i].hasOwnProperty(key)) {
+          query.append(key, q[i][key]);
+        }
       }
     }
 

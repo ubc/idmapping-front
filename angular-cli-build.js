@@ -17,7 +17,9 @@ module.exports = function(defaults) {
       'rxjs/**/*.+(js|js.map)',
       '@angular/**/*.+(js|js.map)',
       'angular2-jwt/angular2-jwt.js',
-      '@angular2-material/**/*'
+      '@angular2-material/**/*',
+      'papaparse/papaparse.js',
+      'underscore/underscore.js'
     ]
   });
 };

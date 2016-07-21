@@ -2,7 +2,7 @@
   Fill in <strong>one</strong>* of the following: <br/>
 
   <div class="ubcidm-search-inputs">
-    <paper-input type="file" label="CSV File to process" ngDefaultControl [(ngModel)]="query.student_id"></paper-input>
+    <paper-input type="file" label="CSV File to process" (change)="onFileChanged($event)"></paper-input>
   </div>
 
   <div class="ubcidm-form-submit">
@@ -10,29 +10,21 @@
       <span class="button-text">Submit</span>
     </paper-button>
   </div>
-  <!-- {{listResult | async | json}} -->
+   <!--{{listResult | async | json}}-->
 
   <div class="ubcidm-search-results-container">
-
+    <button md-button color="primary" [disabled]="downloadDisabled" (click)="Download()">Download</button>
     <table class="table">
 
       <thead>
       <tr>
-        <td>Name</td>
-        <td>Student ID</td>
-        <td>Tool Username</td>
-        <td>Email</td>
-        <td>User ID (PUID)</td>
+        <th *ngFor="let header of headers">{{header}}</th>
       </tr>
       </thead>
 
       <tbody>
       <tr class="searc-result-row" *ngFor="let person of listResult | async">
-        <td>{{person.first_name}} {{person.last_name}}</td>
-        <td>{{person.student_number}}</td>
-        <td>{{person.edx_username}}</td>
-        <td>{{person.email}}</td>
-        <td>{{person.user_id}}</td>
+        <td *ngFor="let header of headers">{{person[header]}}</td>
       </tr>
       </tbody>
 

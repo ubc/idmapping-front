@@ -27,6 +27,10 @@ server.get('/api/map', function (req, res) {
     {
       "first_name":"Test2","last_name":"User","user_id":"3DAN9OGVLY06",
       "edx_username":"test2","student_number":"12345679","email":"test2@ubc.ca"
+    },
+    {
+      "first_name":"Test2","last_name":"User","user_id":"3DAN9OGVLY06",
+      "edx_username":"jennywong217","student_number":"12345679","email":"test2@ubc.ca"
     }
   ]);
 });
