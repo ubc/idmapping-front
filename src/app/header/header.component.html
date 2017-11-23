@@ -2,12 +2,12 @@
 
     <div class="row ubcidm-content">
         <header id="ubcidm-logo" class="col col-8">
-            <span><a href="/search" title=""><img src="images/identity-detective.png" alt="Identity Mapping Logo" /></a></span>
+            <span><a href="/search" title=""><img src="assets/images/identity-detective.png" alt="Identity Mapping Logo" /></a></span>
         </header>
 
         <main id="ubcidm-login" class="col col-4">
             <p *ngIf="getAuth()">Welcome back {{user.username}}</p>
-            <button md-button color="primary" (click)="logout()">Log Out</button>
+            <button mat-button color="primary" (click)="logout()">Log Out</button>
         </main>
     </div>
 

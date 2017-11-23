@@ -2,29 +2,30 @@
   Fill in <strong>one</strong>* of the following: <br/>
 
   <div class="ubcidm-search-inputs">
-    <paper-input type="file" label="CSV File to process" (change)="onFileChanged($event)"></paper-input>
+    <!--<paper-input type="file" label="CSV File to process" (change)="onFileChanged($event)"></paper-input>-->
+    <input type="file" name="file" label="CSV File to process" (change)="onFileChanged($event)"/>
   </div>
 
   <div class="ubcidm-form-submit">
-    <paper-button class="custom indigo main-form-search" (click)="search()">
+    <button mat-button class="custom indigo main-form-search" (click)="search()">
       <span class="button-text">Submit</span>
-    </paper-button>
+    </button>
   </div>
    <!--{{listResult | async | json}}-->
 
   <div class="ubcidm-search-results-container">
-    <button md-button color="primary" [disabled]="downloadDisabled" (click)="Download()">Download</button>
+    <button mat-button color="primary" [disabled]="downloadDisabled" (click)="Download()">Download</button>
     <table class="table">
 
       <thead>
       <tr>
-        <th *ngFor="let header of headers">{{header}}</th>
+        <th *ngFor="let header of display_columns">{{header}}</th>
       </tr>
       </thead>
 
       <tbody>
       <tr class="searc-result-row" *ngFor="let person of listResult | async">
-        <td *ngFor="let header of headers">{{person[header]}}</td>
+        <td *ngFor="let header of display_columns">{{person[header]}}</td>
       </tr>
       </tbody>
 

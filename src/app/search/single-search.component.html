@@ -2,16 +2,24 @@
   Fill in <strong>one</strong>* of the following: <br/>
 
   <div class="ubcidm-search-inputs">
-    <paper-input label="UBC Student ID" ngDefaultControl [(ngModel)]="query.student_id"></paper-input>
-    <paper-input label="EdX Username" ngDefaultControl [(ngModel)]="query.edx_username"></paper-input>
-    <paper-input label="Student Email" ngDefaultControl [(ngModel)]="query.email"></paper-input>
-    <paper-input label="PUID (Personal Unique ID)" ngDefaultControl [(ngModel)]="query.puid"></paper-input>
+    <mat-form-field>
+      <input matInput id="student_id" name="student_id" [(ngModel)]="query.student_id" placeholder="UBC Student ID" type="text"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput id="username" name="username" [(ngModel)]="query.edx_username" placeholder="Edx Username" type="text"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput id="email" name="email" [(ngModel)]="query.email" placeholder="Student Email" type="text"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput id="puid" name="puid" [(ngModel)]="query.puid" placeholder="PUID (Personal Unique ID)" type="text"/>
+    </mat-form-field>
   </div>
 
   <div class="ubcidm-form-submit">
-    <paper-button class="custom indigo main-form-search" (click)="search()">
+    <button mat-button class="custom indigo main-form-search" (click)="search()">
       <span class="button-text">Submit</span>
-    </paper-button>
+    </button>
   </div>
   <!-- {{listResult | async | json}} -->
 

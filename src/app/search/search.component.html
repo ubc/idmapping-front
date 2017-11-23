@@ -17,19 +17,21 @@
           </div><!-- large-number -->
 
           <label for="ubcidm-tool-select" class="ubcidm-directions">Where to Search *</label>
-          <paper-dropdown-menu label="- Select a learning tool -" (iron-select)="selectedTool=$event.target.selectedItem.innerText" noink no-animations>
-            <paper-menu class="dropdown-content" name="ubcidm-tool-select" id="ubcidm-tool-select">
-              <paper-item *ngFor="let tool of linkedTools">{{tool}}</paper-item>
-            </paper-menu>
-          </paper-dropdown-menu>
+          <mat-form-field>
+            <mat-select [(value)]="selectedTool" placeholder="- Select a learning tool -" id="ubcidm-tool-select">
+              <mat-option *ngFor="let tool of linkedTools" [value]="tool">
+                {{ tool }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-          <div class="ubcidm-add-a-tool-container">
-            <span class="add-a-tool-desc">or</span>
-            <paper-button class="add-button">
-              <iron-icon icon="add"></iron-icon>
-              <span class="add-a-tool button-text">Add a Tool</span>
-            </paper-button>
-          </div>
+          <!--<div class="ubcidm-add-a-tool-container">-->
+            <!--<span class="add-a-tool-desc">or</span>-->
+            <!--<button mat-button class="add-button">-->
+              <!--<iron-icon icon="add"></iron-icon>-->
+              <!--<span class="add-a-tool button-text">Add a Tool</span>-->
+            <!--</button>-->
+          <!--</div>-->
 
         </div><!-- .ubcidm-filter-container ubcidm-where -->
 
@@ -43,11 +45,13 @@
           </div><!-- large-number -->
 
           <label for="ubcidm-what-select" class="ubcidm-directions">What to Find *</label>
-          <paper-dropdown-menu id="ubcidm-what-select" name="ubcidm-what-select" label="- Select the results you want -" (iron-select)="onFunctionSelected($event.target.selectedItem.innerText)">
-            <paper-menu class="dropdown-content">
-              <paper-item *ngFor="let func of functions">{{func}}</paper-item>
-            </paper-menu>
-          </paper-dropdown-menu>
+          <mat-form-field>
+            <mat-select [(value)]="selectedFunction" placeholder="- Select the results you want -" (selectionChange)="onFunctionSelected($event.value)" id="ubcidm-what-select" name="ubcidm-what-select">
+              <mat-option *ngFor="let func of functions" [value]="func">
+                {{ func }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
         </div><!-- .ubcidm-filter-container ubcidm-what -->
 

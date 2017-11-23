@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchService} from '../search.service';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/bufferCount';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/mergeMap';
-/// <reference path="../../../typings/main/ambient/papaparse/index.d.ts" />
-/// <reference path="../../../typings/main/ambient/underscore/index.d.ts" />
 import * as _ from 'underscore';
 import * as Papa from 'papaparse';
+import {MatSnackBar} from '@angular/material';
 
-let mapping_attrs = ['CWL', 'PUID', 'student_number'];
+let mapping_attrs = ['cwl', 'user_id', 'student_number'];
 
 function download(content, filename, contentType) {
   if (!contentType) {
@@ -25,25 +25,65 @@ function download(content, filename, contentType) {
 }
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'bulk-search.component.html',
   providers: [SearchService]
 })
 export class BulkSearchComponent implements OnInit {
-  filesToParse: Array<File>;
+  filesToParse: FileList;
   public listResult;
   public headers;
+  public display_columns;
   public downloadDisabled = true;
 
-  constructor(private _searchService: SearchService) {}
+  constructor(private _searchService: SearchService, private snackBar: MatSnackBar) {}
 
   onFileChanged(fileInput: any) {
-    console.log(fileInput);
-    this.filesToParse = <Array<File>> fileInput.target.inputElement.files;
+    this.filesToParse = fileInput.currentTarget.files;
+  }
+
+  createFilteredObservable(source, searchBy, searchKey, bufferSize, completeFunc) {
+    return Observable.from(source)
+      .filter(data => {
+        let need_mapping = false;
+        _.each(mapping_attrs, attr => {
+          if (!data.hasOwnProperty(attr) || data[attr] === '' || data[attr] === null) {
+            data[attr] = 'Pending';
+            need_mapping = true;
+          }
+        });
+        return need_mapping;
+      })
+      .pluck(searchBy)
+      .map(data => { let r = {}; r[searchKey] = data; return r; })
+      .bufferCount(bufferSize)
+      .mergeMap(data => this._searchService.search(data))
+      .subscribe(
+        (data: Array<any>) => {
+          console.log(data);
+          _.each(data, item => {
+            let needle = {};
+            needle[searchBy] = item[searchKey];
+            let row = _.find(source, needle);
+            if (row) {
+              _.each(mapping_attrs, attr => {
+                if (row[attr] === 'Pending') {
+                  row[attr] = item[attr];
+                }
+              });
+            }
+          });
+        },
+        error => {
+          this.snackBar.open('Mapping Failed. Please try again.', 'x');
+        },
+        completeFunc
+      );
   }
 
   search() {
     let obj = this;
+    // copy array by value as we need to modify display_columns
+    this.display_columns = mapping_attrs.slice();
     // TODO: error handling
     Papa.parse(this.filesToParse[0], {
       header: true,
@@ -57,6 +97,7 @@ export class BulkSearchComponent implements OnInit {
           } else if (result.data[0].hasOwnProperty('Username')) {
             usernameField = 'Username';
           }
+          this.display_columns.unshift(usernameField)
         }
         if (!emailField) {
           if (result.data[0].hasOwnProperty('email')) {
@@ -64,6 +105,7 @@ export class BulkSearchComponent implements OnInit {
           } else if (result.data[0].hasOwnProperty('Email')) {
             emailField = 'Email';
           }
+          this.display_columns.unshift(emailField)
         }
 
         if (!usernameField && !emailField) {
@@ -72,39 +114,8 @@ export class BulkSearchComponent implements OnInit {
 
         obj.headers = _.union(Object.keys(result.data[0]), mapping_attrs);
         obj.listResult = Observable.of(result.data);
-        Observable.from(result.data)
-          .filter(data => {
-            let need_mapping = false;
-            _.each(mapping_attrs, attr => {
-              if (!data.hasOwnProperty(attr) || data[attr] === '') {
-                data[attr] = 'Pending';
-                need_mapping = true;
-              }
-            });
-            return need_mapping;
-          })
-          .pluck(usernameField)
-          .map(data => { return {'edx_username': data}; })
-          .bufferCount(10)
-          .mergeMap(data => this._searchService.search(data))
-          .subscribe((data: Array<any>) => {
-            console.log(data);
-            _.each(data, item => {
-              let row = _.find(result.data, {'username': item.edx_username});
-              if (row) {
-                _.each(mapping_attrs, attr => {
-                  if (row[attr] === 'Pending') {
-                    row[attr] = item[attr];
-                  }
-                });
-              }
-            });
-          },
-          error => {
-            console.log('Error!');
-          },
-          () => {
-            console.log('done');
+        this.createFilteredObservable(result.data, usernameField, 'edx_username', 5, () => {
+          this.createFilteredObservable(result.data, emailField, 'email', 20, () => {
             // clean up
             _.each(result.data, row => {
               _.each(mapping_attrs, attr => {
@@ -114,7 +125,9 @@ export class BulkSearchComponent implements OnInit {
               });
             });
             this.downloadDisabled = false;
+            this.snackBar.open('Mapping Completed! The result can be downloaded by clicking "Download" button.', 'x');
           });
+        })
       }
     });
   }

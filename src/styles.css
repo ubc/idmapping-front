@@ -1,3 +1,4 @@
+/* You can add global styles to this file, and also import other style files */
 /*
 Colours
 --------
@@ -14,6 +15,8 @@ All / *                         : Roboto
 
 
  */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 /* ======================================
    Generalities
@@ -51,14 +54,14 @@ html, body, my-app {
     margin: 0 0 40px 0;
 }
 
-    #ubcidm-login {
-        text-align: right;
-    }
+#ubcidm-login {
+    text-align: right;
+}
 
-        #ubcidm-login paper-button {
-            background: white;
-            margin-right: 0;
-        }
+#ubcidm-login paper-button {
+    background: white;
+    margin-right: 0;
+}
 
 
 /* ======================================
@@ -70,7 +73,7 @@ html, body, my-app {
     margin: 0 0 40px 0;
     padding: 80px 0 30px 0;
     border-bottom: 3px solid #57BFDD;
-    background: transparent url('../images/shoeprints-l-to-r.png') no-repeat 37% 13%;
+    background: transparent url('assets/images/shoeprints-l-to-r.png') no-repeat 37% 13%;
 }
 
 .ubcidm-add-a-tool-container {
@@ -79,18 +82,18 @@ html, body, my-app {
     margin-top: 10px;
 }
 
-    .add-a-tool-desc {
-        margin-right: 20px;
-    }
+.add-a-tool-desc {
+    margin-right: 20px;
+}
 
 paper-dropdown-menu {
     width: 88%;
 }
 
-paper-button {
-    border: 1px solid #D7D7D7;
-    line-height: 1;
-}
+/*input[matInput] {*/
+    /*border: 1px solid #D7D7D7;*/
+    /*line-height: 1;*/
+/*}*/
 
 paper-menu {
     min-width: 200px;
@@ -102,15 +105,19 @@ paper-menu {
     }
 }
 
-    span.button-text {
-        text-transform: none;
-        position: relative;
-        top: 2px;
-    }
+mat-form-field {
+  width: 100%;
+}
 
-    .add-a-tool {
-        padding-right: 7px;
-    }
+span.button-text {
+    text-transform: none;
+    position: relative;
+    top: 2px;
+}
+
+.add-a-tool {
+    padding-right: 7px;
+}
 
 
 /* ======================================
@@ -118,7 +125,7 @@ paper-menu {
    ====================================== */
 
 .ubcidm-search-container {
-    background: transparent url('../images/shoeprints-r-to-l.png') no-repeat 100% 0;
+    background: transparent url('assets/images/shoeprints-r-to-l.png') no-repeat 100% 0;
     min-height: 200px;
 }
 
@@ -137,6 +144,10 @@ paper-menu {
     margin: 0 58px;
 }
 
+.ubcidm-filters mat-form-field {
+  width: 88%
+}
+
 /* ======================================
    Utilities
    ====================================== */
@@ -147,12 +158,12 @@ paper-menu {
     margin-right: 20px;
 }
 
-    .large-number p {
-        color: #57BFDD;
-        font-weight: 900;
-        font-size: 4em;
-        margin: 0;
-    }
+.large-number p {
+    color: #57BFDD;
+    font-weight: 900;
+    font-size: 4em;
+    margin: 0;
+}
 
 .ubcidm-directions {
     color: #57BFDD;
@@ -213,6 +224,18 @@ paper-menu {
     font-size: 2em;
     font-weight: 200;
     margin: 0;
+}
+
+.ubcidm-login-form .mat-form-field-placeholder, .ubcidm-login-form input {
+  color: #D7D7D7;
+}
+
+.ubcidm-login-form .mat-input-underline {
+  background-color: #D7D7D7;
+}
+
+.ubcidm-login-form .mat-form-field-ripple {
+  background-color: #57BFDD;
 }
 
 .ubcidm-login-button {

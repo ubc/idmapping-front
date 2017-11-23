@@ -1,11 +1,10 @@
 /* tslint:disable:no-unused-variable */
 
-import {addProviders} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 // import {ROUTER_FAKE_PROVIDERS} from '@angular/router/testing';
 
 beforeEach(() => {
-  addProviders([AppComponent]);
+  // addProviders([AppComponent]);
 });
 
 describe('App: IDMap', () => {

@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth.service';
-import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
+import {MatButtonModule} from '@angular/material';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-header',
   templateUrl: 'header.component.html',
-  styleUrls: ['header.component.css'],
-  directives: [MD_BUTTON_DIRECTIVES]
+  styleUrls: ['header.component.css']
 })
 export class HeaderComponent implements OnInit {
 
@@ -24,12 +22,12 @@ export class HeaderComponent implements OnInit {
   }
 
   getAuth() {
-    return this._auth.isAuth();
+    return this._auth.loggedIn();
   }
 
   ngOnInit() {
     this._auth.userLoggedIn$.subscribe(user => this.onUserLoggedIn(user));
-    if (!this._auth.isAuth()) {
+    if (!this._auth.loggedIn()) {
       this._router.navigate(['/login']);
       return;
     }

@@ -5,7 +5,7 @@
 
         <span class="ubcidm-login-logo">
             <a href="" title="">
-                <img src="images/identity-detective.png" alt="Identity Mapping Logo" />
+                <img src="assets/images/identity-detective.png" alt="Identity Mapping Logo" />
             </a>
         </span>
 
@@ -18,11 +18,13 @@
       <p class="sign-in-instructions">Sign in to <strong>ID</strong>entity Detective</p>
 
       <form class="ubcidm-login-form">
-        <paper-input class="paper-form-control" id="username" ngDefaultControl [(ngModel)]="username" label="Username" type="text"></paper-input>
-        <paper-input class="paper-form-control" id="password" ngDefaultControl [(ngModel)]="password" label="Password" type="password"></paper-input>
-        <paper-button (click)="login($event)" class="button ubcidm-login-button">
-          <span class="button-text">Submit</span>
-        </paper-button>
+        <mat-form-field>
+          <input matInput id="username" name="username" [(ngModel)]="username" placeholder="Username" type="text"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput id="password" name="password" [(ngModel)]="password" placeholder="Password" type="password"/>
+        </mat-form-field>
+        <button mat-raised-button (click)="login($event)" class="ubcidm-login-button">Submit</button>
       </form>
 
     </div><!-- .ubcidm-login-and-instructions-container -->

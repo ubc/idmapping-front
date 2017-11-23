@@ -1,16 +1,14 @@
 import {Component} from '@angular/core';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'search.component.html',
-  styleUrls: ['search.component.css'],
-  directives: [ROUTER_DIRECTIVES],
+  styleUrls: ['search.component.css']
 })
 export class SearchComponent {
-  public linkedTools = ['Edx', 'MyTool'];
+  public linkedTools = ['Edx'];
   public functions = ['Individual Students', 'Grade/Enrolment'];
-  public selectedTool;
+  public selectedTool = 'Edx';
   public selectedFunction;
   public listResult;
   public query = {};
@@ -19,7 +17,6 @@ export class SearchComponent {
 
   onFunctionSelected(func: string) {
     if (func === 'Individual Students') {
-      console.log(func);
       this.router.navigate(['/search/single']);
     } else if (func === 'Grade/Enrolment') {
       this.router.navigate(['/search/bulk']);
